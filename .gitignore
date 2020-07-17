@@ -7,6 +7,8 @@ dist/
 .env.local
 .env.*.local
 
+token
+
 # Log files
 npm-debug.log*
 yarn-debug.log*

@@ -1,0 +1,8 @@
+export const HAS_LOGIN = "HAS_LOGIN"
+export const USERNAME = "USERNAME"
+export const USER_ID ="USER_ID"
+export const PHONE = "PHONE"
+export const REAL_NAME = "REAL_NAME"
+export const ACCESS_TOKEN = "ACCESS_TOKEN"
+export const LOGIN = "LOGIN"
+export const LOGOUT = "LOGOUT"
