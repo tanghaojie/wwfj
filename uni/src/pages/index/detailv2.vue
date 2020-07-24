@@ -300,9 +300,7 @@ export default {
         !regionName ||
         !regionIndex ||
         !regionCode ||
-        !locDetail ||
-        !projPropName ||
-        !landPropName
+        !locDetail
       ) {
         uni.showToast({
           title: '请填写完整信息',

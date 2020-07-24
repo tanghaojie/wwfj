@@ -30,9 +30,9 @@ namespace Backend.Web.Host.Controllers
             {
                 throw new UserFriendlyException("请输入用户名或密码");
             }
-            if (!new Regex("^[a-zA-Z][a-zA-Z0-9_]{3,13}$").Match(input.Username).Success)
+            if (!new Regex(@"^[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5_]{1,13}$").Match(input.Username).Success)
             {
-                throw new UserFriendlyException("请输入字母开头，字母数字下划线，长度为4~12字符的用户名");
+                throw new UserFriendlyException("请输入字母或中文开头，只包含字母中文数字下划线，长度为2~12字符的用户名");
             }
             if (input.Department == Department.KanTanYeWu && string.IsNullOrWhiteSpace(input.RegionCode))
             {
@@ -50,7 +50,7 @@ namespace Backend.Web.Host.Controllers
             {
                 throw new UserFriendlyException("用户名已存在");
             }
-            if (_userRepository.Count(x => x.Phone == input.Phone) > 0)
+            if (!string.IsNullOrWhiteSpace(input.Phone) && _userRepository.Count(x => x.Phone == input.Phone) > 0)
             {
                 throw new UserFriendlyException("电话已存在");
             }

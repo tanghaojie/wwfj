@@ -6,8 +6,8 @@ import App from './App'
 Vue.config.productionTip = false
 
 Vue.prototype.$store = store
-Vue.prototype.BaseUrl = 'http://117.139.247.104:60001/wwfjapi'
-// Vue.prototype.BaseUrl = 'http://localhost:62114/wwfjapi'
+// Vue.prototype.BaseUrl = 'http://117.139.247.104:60001/wwfjapi'
+Vue.prototype.BaseUrl = 'http://localhost:12345/wwfjapi'
 Vue.prototype.State = {
   New: 0, //已新建项目
   UnProtocoled: 1, //未签订协议  finished

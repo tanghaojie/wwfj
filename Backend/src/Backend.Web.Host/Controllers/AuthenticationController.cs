@@ -45,6 +45,10 @@ namespace Backend.Web.Host.Controllers
                 .FirstOrDefault();
             if (result != null)
             {
+                if (result.Locked)
+                {
+                    return null;
+                }
                 var claims = new List<Claim>
                 {
                     new Claim(AbpClaimTypes.UserId, result.Id.ToString()),
@@ -87,6 +91,10 @@ namespace Backend.Web.Host.Controllers
                 return null;
             }
             var result = await _userRepository.GetAsync((int)userid.Value);
+            if (result.Locked)
+            {
+                return null;
+            }
             var token = await HttpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
             var utc = new JwtSecurityTokenHandler().ReadJwtToken(token).ValidTo;
 

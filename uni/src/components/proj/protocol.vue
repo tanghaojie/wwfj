@@ -44,10 +44,12 @@
           </view>
         </view>
 
-        <!-- 是否签订协议 -->
+        <!-- 是否签订调查勘探协议 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
-            <text class="title-text title-text-require">是否签订协议</text>
+            <text class="title-text title-text-require"
+              >是否签订调查勘探协议</text
+            >
           </view>
           <view class="input-inline-wrapper m-l-30">
             <switch
@@ -58,24 +60,76 @@
             />
           </view>
         </view>
-
-        <!-- 协议签订时间 -->
-        <view v-show="protocoled" class="input-group j-flex j-flex-row ">
-          <view class="title">
-            <text class="title-text title-text-require">协议签订时间</text>
+        <view v-show="protocoled">
+          <!-- 协议签订时间 -->
+          <view class="input-group j-flex j-flex-row ">
+            <view class="title">
+              <text class="title-text title-text-require">协议签订时间</text>
+            </view>
+            <view class="input-inline-wrapper">
+              <picker
+                mode="date"
+                :value="protocoledDate"
+                @change="protocoledDateChange"
+                class="text-center"
+                :disabled="!formEnable"
+              >
+                <view class="text-center">{{ protocoledDate }}</view>
+              </picker>
+            </view>
           </view>
-          <view class="input-inline-wrapper">
-            <picker
-              mode="date"
-              :value="protocoledDate"
-              @change="protocoledDateChange"
-              class="text-center"
-              :disabled="!formEnable"
-            >
-              <view class="text-center">{{ protocoledDate }}</view>
-            </picker>
+
+          <!-- 协议编号 -->
+          <view class="input-group">
+            <view class="title">
+              <text class="title-text title-text-require ">协议编号</text>
+            </view>
+            <view class="input-wrapper">
+              <input
+                class="input"
+                @input="onProtocoledNumberInput"
+                placeholder="请输入..."
+                :value="protocoledNumber"
+                :disabled="!formEnable"
+              />
+            </view>
+          </view>
+
+          <!-- 协议派出时间 -->
+          <view class="input-group j-flex j-flex-row ">
+            <view class="title">
+              <text class="title-text title-text-require">协议派出时间</text>
+            </view>
+            <view class="input-inline-wrapper">
+              <picker
+                mode="date"
+                :value="protocoledSendDate"
+                @change="protocoledSendDateChange"
+                class="text-center"
+                :disabled="!formEnable"
+              >
+                <view class="text-center">{{ protocoledSendDate }}</view>
+              </picker>
+            </view>
+          </view>
+
+          <!-- 协议派出部门 -->
+          <view class="input-group">
+            <view class="title">
+              <text class="title-text title-text-require ">协议派出部门</text>
+            </view>
+            <view class="input-wrapper">
+              <input
+                class="input"
+                @input="onProtocoledSendDepartmentInput"
+                placeholder="请输入..."
+                :value="protocoledSendDepartment"
+                :disabled="!formEnable"
+              />
+            </view>
           </view>
         </view>
+
         <!-- 未签订协议原因 -->
         <view v-show="!protocoled" class="input-group j-flex j-flex-row ">
           <view class="title">
@@ -125,9 +179,11 @@ export default {
     return {
       documentSubmitDate: '',
       documentReviewCompletedDate: '',
-
       protocoled: true,
       protocoledDate: '',
+      protocoledNumber: '',
+      protocoledSendDate: '',
+      protocoledSendDepartment: '',
       unProtocolReasonIndex: 0,
       unProtocolReasons: [
         { name: '资料审核不通过' },
@@ -155,6 +211,15 @@ export default {
     },
     unProtocolReasonChange(e) {
       this.unProtocolReasonIndex = e.detail.value
+    },
+    onProtocoledNumberInput(e) {
+      this.protocoledNumber = e.target.value
+    },
+    protocoledSendDateChange(e) {
+      this.protocoledSendDate = e.target.value
+    },
+    onProtocoledSendDepartmentInput(e) {
+      this.protocoledSendDepartment = e.target.value
     }
   }
 }

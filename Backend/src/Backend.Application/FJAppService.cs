@@ -31,15 +31,8 @@ namespace Backend
             return await _fjRepository.InsertOrUpdateAndGetIdAsync(e);
         }
 
-        public virtual int X()
-        {
-            return 1;
-        }
-
-
         public async Task<FJOutput> Get(int id)
         {
-            var uid = AbpSession.UserId;
             var en = await _fjRepository.GetAsync(id);
             return ObjectMapper.Map<FJOutput>(en);
         }

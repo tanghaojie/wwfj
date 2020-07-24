@@ -27,6 +27,9 @@ namespace Backend.Entities
 
         //public Role Role { get; set; } = Role.AllRegion | Role.Write | Role.Read;
 
+        [Required]
+        public bool Locked { get; set; } = true;
+
 
 
         [Required]

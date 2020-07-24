@@ -11,8 +11,6 @@ namespace Backend
     {
         Task<int> Commit(NewInput input);
 
-        int X();
-
 
         Task<FJOutput> Get(int id);
 

@@ -8,6 +8,32 @@
       class="j-flex-nogrow-noshrink search-bar"
     ></uni-search-bar>
 
+    <view class="regionFilter">
+      <simple-address
+        ref="addressPicker"
+        themeColor="#007AFF"
+        :pickerValueDefault="region.index"
+        @onConfirm="onAddresPickerConfirm"
+        type="bottom"
+      ></simple-address>
+      <!-- 按行政区筛选 -->
+      <view class="j-flex j-flex-row">
+        <view class="title">
+          <text class="title-text">按行政区筛选</text>
+        </view>
+        <view class="region input-inline-wrapper" @click="openAddresPicker">
+          {{ region.label }}
+        </view>
+        <view
+          class="clear j-flex j-flex-center"
+          @click="regionClear"
+          v-show="region.label"
+        >
+          <icon type="clear" />
+        </view>
+      </view>
+    </view>
+
     <view
       class="j-flex j-flex-row j-flex-nowrap j-flex-nogrow-noshrink tabbar "
     >
@@ -94,6 +120,7 @@ import plusButton from '@/components/buttons/plus.vue'
 import arrowButton from '@/components/buttons/arrow.vue'
 import test from '@/components/buttons/test.vue'
 import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+import simpleAddress from '@/components/simple-address/simple-address.nvue'
 import item from './item.vue'
 import { USER_INFO } from '@/store/storage-keys.js'
 
@@ -122,7 +149,12 @@ export default {
           id: 'yichuli'
         }
       ],
-      tabIndex: null
+      tabIndex: null,
+      region: {
+        label: '',
+        index: [22, 0, 0],
+        code: ''
+      }
     }
   },
   components: {
@@ -131,7 +163,8 @@ export default {
     arrowButton,
     test,
     uniSearchBar,
-    item
+    item,
+    simpleAddress
   },
   onLoad() {},
   methods: {
@@ -344,6 +377,19 @@ export default {
     },
     startPullDownRefresh() {
       this.refreshViewData()
+    },
+    onAddresPickerConfirm(e) {
+      this.region.label = e.label
+      this.region.index = e.value
+      this.region.code = e.areaCode
+    },
+    openAddresPicker() {
+      this.$refs.addressPicker.open()
+    },
+    regionClear() {
+      this.region.label = ''
+      this.region.index = [22, 0, 0]
+      this.region.code = ''
     }
   },
   onPullDownRefresh() {
@@ -458,6 +504,29 @@ export default {
   }
 
   .top-button {
+  }
+}
+
+.regionFilter {
+  padding: 20rpx 10rpx;
+  border-color: #cccccc;
+  border-bottom-style: solid;
+  border-bottom-width: 2rpx;
+  .title {
+    padding: 0 16rpx;
+    color: #999;
+    font-size: 0.8rem;
+    flex: 0 0 auto;
+  }
+  .region {
+    color: #333;
+    flex: 1 0 auto;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .clear {
+    padding: 0 16rpx;
+    flex: 0 0 auto;
   }
 }
 </style>

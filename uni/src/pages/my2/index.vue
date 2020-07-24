@@ -158,7 +158,7 @@ export default {
           if (error || !res.data.success || !res.data.result) {
             console.log(res)
             uni.showToast({
-              title: '登录失败，请重试',
+              title: '登录失败，请重试，或账号处于锁定状态',
               duration: 1500
             })
             return

@@ -7,6 +7,26 @@
         :showAnimation="true"
         :disabled="collapseDisabled"
       >
+        <!-- 现场移交出具手续时间 -->
+        <view class="input-group j-flex j-flex-row ">
+          <view class="title">
+            <text class="title-text title-text-require"
+              >现场移交出具手续时间</text
+            >
+          </view>
+          <view class="input-inline-wrapper">
+            <picker
+              mode="date"
+              :value="handoverData"
+              @change="handoverDataChange"
+              class="text-center"
+              :disabled="formEnableIndex !== 0"
+            >
+              <view class="text-center">{{ handoverData }}</view>
+            </picker>
+          </view>
+        </view>
+
         <!-- 出具《工作信息表》时间 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
@@ -89,6 +109,7 @@ export default {
   props: {},
   data() {
     return {
+      handoverData: '',
       workInfoPublishDate: '',
       businessAdvicePublishDate: '',
       finishNoticePublishDate: '',
@@ -114,6 +135,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    handoverDataChange(e) {
+      this.handoverData = e.target.value
+    },
     workInfoPublishDateChange(e) {
       this.workInfoPublishDate = e.target.value
     },

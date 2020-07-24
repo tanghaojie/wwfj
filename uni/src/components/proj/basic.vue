@@ -29,6 +29,26 @@
           </view>
         </view>
 
+        <!-- 委托单位 -->
+        <view class="input-group j-flex j-flex-row ">
+          <view class="title">
+            <text class="title-text">委托单位</text>
+          </view>
+          <view class="input-inline-wrapper">
+            <picker
+              mode="selector"
+              :value="requesterIndex"
+              :range="requesters"
+              :disabled="!formEnable"
+              range-key="name"
+              class="text-center"
+              @change="onrequesterChange"
+            >
+              <view class="">{{ requesters[requesterIndex].name }}</view>
+            </picker>
+          </view>
+        </view>
+
         <!-- 所在区域 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
@@ -60,7 +80,7 @@
         <!-- 项目性质 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
-            <text class="title-text title-text-require">项目性质</text>
+            <text class="title-text">项目性质</text>
           </view>
           <view class="input-inline-wrapper">
             <picker
@@ -80,7 +100,7 @@
         <!-- 用地性质 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
-            <text class="title-text title-text-require">用地性质</text>
+            <text class="title-text">用地性质</text>
           </view>
           <view class="input-inline-wrapper">
             <picker
@@ -137,6 +157,7 @@ export default {
       locDetail: null,
       projPropIndex: 0,
       projProps: [
+        { name: '' },
         { name: '国家' },
         { name: '省级' },
         { name: '市级' },
@@ -145,17 +166,35 @@ export default {
       ],
       landPropIndex: 0,
       landProps: [
+        { name: '' },
         { name: '上市' },
         { name: '协议出让' },
         { name: '划拨' },
         { name: '自由土地' }
+      ],
+      requesterIndex: 0,
+      requesters: [
+        { name: '成都高新投资集团有限公司' },
+        { name: '成都城投集团' },
+        { name: '成都城投集团111' },
+        { name: '成都城投集团222' },
+        { name: '成都城投集团333' },
+        { name: '成都城投集团444' },
+        { name: '成都城投集团555' },
+        { name: '成都城投集团666' },
+        { name: '成都城投集团777' },
+        { name: '成都城投集团888' },
+        { name: '成都城投集团999' },
+        { name: '成都城投集团000' }
       ]
     }
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    
+  },
   methods: {
     onProjNameInput(e) {
       this.projName = e.detail.value
@@ -163,11 +202,14 @@ export default {
     onLocDetailInput(e) {
       this.locDetail = e.detail.value
     },
-    onLandPropChange: function(e) {
+    onLandPropChange(e) {
       this.landPropIndex = e.detail.value
     },
-    onProjPropChange: function(e) {
+    onProjPropChange(e) {
       this.projPropIndex = e.detail.value
+    },
+    onrequesterChange(e) {
+      this.requesterIndex = e.detail.value
     },
     openAddresPicker() {
       if (!this.formEnable || !this.locRegionEnable) {

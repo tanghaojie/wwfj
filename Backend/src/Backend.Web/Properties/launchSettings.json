@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:62114/wwfjapi/",
+      "applicationUrl": "http://localhost:12345/wwfjapi/",
       "sslPort": 0
     }
   },
@@ -16,7 +16,7 @@
       }
     },
     "Backend.Web": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000",
       "environmentVariables": {

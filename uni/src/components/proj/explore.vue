@@ -43,6 +43,23 @@
           </view>
         </view>
 
+        <!-- 项目现场文勘条件 -->
+        <view class="input-group">
+          <view class="title">
+            <text class="title-text title-text-require ">项目现场文勘条件</text>
+          </view>
+          <view class="input-wrapper">
+            <input
+              class="input"
+              @input="exploreConditionChange"
+              type="digit"
+              placeholder="请输入..."
+              :value="exploreCondition"
+              :disabled="!formEnable"
+            />
+          </view>
+        </view>
+
         <!-- 是否转入考古发掘 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
@@ -79,41 +96,40 @@
           </view>
 
           <!-- 预计发掘面积 -->
+          <view class="input-group j-flex j-flex-row">
+            <view class="title">
+              <text class="title-text title-text-require ">预计发掘面积</text>
+            </view>
+            <view class="input-inline-wrapper">
+              <picker
+                mode="selector"
+                :value="estimateDigAreaIndex"
+                :range="estimateDigAreas"
+                range-key="name"
+                class="text-center"
+                @change="unEstimateDigAreaChange"
+                :disabled="!formEnable"
+              >
+                <view class="text-center">{{
+                  estimateDigAreas[estimateDigAreaIndex].name
+                }}</view>
+              </picker>
+            </view>
+          </view>
+
+          <!-- 预计发掘周期 -->
           <view class="input-group">
             <view class="title">
-              <text class="title-text title-text-require "
-                >预计发掘面积(㎡)</text
-              >
+              <text class="title-text title-text-require">预计发掘周期</text>
             </view>
             <view class="input-wrapper">
               <input
                 class="input"
-                @input="estimateAreaChange"
-                type="digit"
+                @input="onEstimateTimespanInput"
                 placeholder="请输入..."
-                :value="estimateArea"
+                :value="estimateTimespan"
                 :disabled="!formEnable"
               />
-            </view>
-          </view>
-
-          <!-- 预计发掘结束时间 -->
-          <view class="input-group j-flex j-flex-row ">
-            <view class="title">
-              <text class="title-text title-text-require"
-                >预计发掘结束时间</text
-              >
-            </view>
-            <view class="input-inline-wrapper">
-              <picker
-                mode="date"
-                :value="estimateFinishDate"
-                @change="estimateFinishDateChange"
-                class="text-center"
-                :disabled="!formEnable"
-              >
-                <view class="text-center">{{ estimateFinishDate }}</view>
-              </picker>
             </view>
           </view>
         </view>
@@ -132,10 +148,16 @@ export default {
     return {
       exploreStartDate: '',
       exploreEndDate: '',
+      exploreCondition: '',
       ifDig: false,
       situation: '',
-      estimateArea: 0,
-      estimateFinishDate: ''
+      estimateTimespan: '',
+      estimateDigAreaIndex: 0,
+      estimateDigAreas: [
+        { name: '0-500m²' },
+        { name: '500m²-1000m²' },
+        { name: '1000m²-2000m²' }
+      ]
     }
   },
   props: {
@@ -163,17 +185,20 @@ export default {
     exploreEndDateChange(e) {
       this.exploreEndDate = e.target.value
     },
+    exploreConditionChange(e) {
+      this.exploreCondition = e.target.value
+    },
     digChange(e) {
       this.ifDig = e.target.value
     },
     onSituationInput(e) {
       this.situation = e.target.value
     },
-    estimateAreaChange(e) {
-      this.estimateArea = e.target.value
+    unEstimateDigAreaChange(e) {
+      this.estimateDigAreaIndex = e.target.value
     },
-    estimateFinishDateChange(e) {
-      this.estimateFinishDate = e.target.value
+    onEstimateTimespanInput(e) {
+      this.estimateTimespan = e.target.value
     }
   }
 }

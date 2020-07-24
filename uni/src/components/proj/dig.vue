@@ -7,6 +7,42 @@
         :showAnimation="true"
         :disabled="collapseDisabled"
       >
+         <!-- 发掘入场时间 -->
+        <view class="input-group j-flex j-flex-row ">
+          <view class="title">
+            <text class="title-text title-text-require">发掘入场时间</text>
+          </view>
+          <view class="input-inline-wrapper">
+            <picker
+              mode="date"
+              :value="startDigDate"
+              @change="startDigDateChange"
+              class="text-center"
+              :disabled="!formEnable"
+            >
+              <view class="text-center">{{ startDigDate }}</view>
+            </picker>
+          </view>
+        </view>
+
+        <!-- 发掘结束时间 -->
+        <view class="input-group j-flex j-flex-row ">
+          <view class="title">
+            <text class="title-text title-text-require">发掘结束时间</text>
+          </view>
+          <view class="input-inline-wrapper">
+            <picker
+              mode="date"
+              :value="endDigDate"
+              @change="endDigDateChange"
+              class="text-center"
+              :disabled="!formEnable"
+            >
+              <view class="text-center">{{ endDigDate }}</view>
+            </picker>
+          </view>
+        </view>
+
         <!-- 发掘前期函告时间 -->
         <view class="input-group j-flex j-flex-row ">
           <view class="title">
@@ -91,47 +127,11 @@
           </view>
         </view>
 
-        <!-- 发掘入场时间 -->
-        <view class="input-group j-flex j-flex-row ">
-          <view class="title">
-            <text class="title-text title-text-require">发掘入场时间</text>
-          </view>
-          <view class="input-inline-wrapper">
-            <picker
-              mode="date"
-              :value="startDigDate"
-              @change="startDigDateChange"
-              class="text-center"
-              :disabled="!formEnable"
-            >
-              <view class="text-center">{{ startDigDate }}</view>
-            </picker>
-          </view>
-        </view>
-
-        <!-- 发掘结束时间 -->
-        <view class="input-group j-flex j-flex-row ">
-          <view class="title">
-            <text class="title-text title-text-require">发掘结束时间</text>
-          </view>
-          <view class="input-inline-wrapper">
-            <picker
-              mode="date"
-              :value="endDigDate"
-              @change="endDigDateChange"
-              class="text-center"
-              :disabled="!formEnable"
-            >
-              <view class="text-center">{{ endDigDate }}</view>
-            </picker>
-          </view>
-        </view>
-
-        <!-- 发掘阶段性成果报告 -->
+        <!-- 发掘阶段性成果报告(每月一次) -->
         <view class="input-group">
           <view class="title"
             ><text class="title-text title-text-require"
-              >发掘阶段性成果报告</text
+              >发掘阶段性成果报告(每月一次)</text
             ></view
           >
           <view class="input-wrapper">
