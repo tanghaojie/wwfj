@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.Dtos2;
 using Backend.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,12 @@ namespace Backend.Dtos
         public MapProfile()
         {
             CreateMap<FJ, FJOutput>();
-            CreateMap<NewInput, FJ>();
+            CreateMap<FJ, FJOutput>();
+            CreateMap<FJ2, FJ2Output>();
+            CreateMap<FJ2NewInput, FJ2>();
+            CreateMap<AddRequestCompanyInput, RequestCompany>();
+            CreateMap<RequestCompany, RequestCompanyOutput>();
+
         }
     }
 }

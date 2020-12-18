@@ -38,16 +38,12 @@ namespace Backend.Entities
         public string RegionName { get; set; }  //所在区域
         [Required]
         public string RegionIndex { get; set; }  // 所在区域  前端要index
-        [Required]
         public string LocationDetail { get; set; }  // 详细位置
+        public RequestCompany RequestCompany { get; set; } //委托单位
 
-        [Required]
         public string ProjPropertyName { get; set; }  // 项目性质
-        [Required]
         public int ProjPropertyIndex { get; set; }  //  项目性质 前端要index
-        [Required]
         public string LandPropertyName { get; set; }  // 用地性质
-        [Required]
         public int LandPropertyIndex { get; set; } //用地性质 前端要index
 
         #endregion
@@ -55,13 +51,18 @@ namespace Backend.Entities
 
         #region 状态： Protocoled 或 UnProtocoled
 
-        public DateTime? DocumentSubmitDate { get; set; } //委托资料提交时间
-        public DateTime? DocumentReviewCompletedDate { get; set; } //委托资料审核完成时间
-        public DateTime? ProtocoledDate { get; set; } //签订协议时间
+        public DateTime? DocumentSubmitDate { get; set; } // 委托资料提交时间
+        public DateTime? DocumentReviewCompletedDate { get; set; } // 委托资料审核完成时间
+        public DateTime? ProtocoledDate { get; set; } // 签订协议时间
+
+        public string ProtocolNumber { get; set; } // 协议编号
+        public DateTime? ProtocolSendDate { get; set; } // 签订派出时间
+        public string ProtocolSendDepartment { get; set; } // 签订派出部门
+
 
         //如果不签协议 UnProtocoled
-        public string UnProtocoledReason { get; set; } //未签订协议原因  UnProtocoled only
-        public int? UnProtocoledReasonIndex { get; set; } //未签订协议原因 前端index
+        public string UnProtocoledReason { get; set; } // 未签订协议原因  UnProtocoled only
+        public int? UnProtocoledReasonIndex { get; set; } // 未签订协议原因 前端index
 
         #endregion
 
@@ -71,15 +72,17 @@ namespace Backend.Entities
         public DateTime? ExplorePaidDate { get; set; } // 勘探缴费时间
         //Exploring
 
+        public string ExploreSituation { get; set; } // 项目现场文勘条件
         public DateTime? ExploreStartDate { get; set; } // 勘探开始时间
         public DateTime? ExploreEndDate { get; set; } // 勘探结束时间
         // UnDig 不发掘 finish
 
 
         public string Situation { get; set; }
-        public double? EstimateArea { get; set; } // 预计发掘面积 平方米
-        public DateTime? EstimateFinishDate { get; set; } // 预计发掘结束时间  
-                                                          // Explored 要发掘
+        public string EstimateArea { get; set; } // 预计发掘面积 平方米
+        public int? EstimateAreaIndex { get; set; } // 预计发掘面积 平方米 前端index
+        public string EstimateTimespan { get; set; } // 预计发掘周期
+                                                     // Explored 要发掘
 
         #endregion
 
@@ -103,6 +106,8 @@ namespace Backend.Entities
 
 
         #region Repost
+
+        public DateTime? HandoverData { get; set; } // 现场移交出具手续时间
 
         public DateTime? WorkInfoPublishDate { get; set; } // 出具《工作信息表》时间
 

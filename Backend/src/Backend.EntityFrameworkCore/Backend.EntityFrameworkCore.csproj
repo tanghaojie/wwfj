@@ -15,6 +15,10 @@
     <RootNamespace>Backend</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Migrations\20201218081932_qq.cs" />
+    <Compile Remove="Migrations\20201218081932_qq.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Backend.Core\Backend.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

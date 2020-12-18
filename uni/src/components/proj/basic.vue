@@ -173,27 +173,14 @@ export default {
         { name: '自由土地' }
       ],
       requesterIndex: 0,
-      requesters: [
-        { name: '成都高新投资集团有限公司' },
-        { name: '成都城投集团' },
-        { name: '成都城投集团111' },
-        { name: '成都城投集团222' },
-        { name: '成都城投集团333' },
-        { name: '成都城投集团444' },
-        { name: '成都城投集团555' },
-        { name: '成都城投集团666' },
-        { name: '成都城投集团777' },
-        { name: '成都城投集团888' },
-        { name: '成都城投集团999' },
-        { name: '成都城投集团000' }
-      ]
+      requesters: []
     }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    
+    this.getRequestCompanies()
   },
   methods: {
     onProjNameInput(e) {
@@ -221,6 +208,30 @@ export default {
       this.locRegion.label = e.label
       this.locRegion.index = e.value
       this.locRegion.code = e.areaCode
+    },
+    getRequestCompanies() {
+      uni.showLoading({ title: '' })
+      uni
+        .request({
+          url: this.BaseUrl + '/api/services/app/RequestCompany/GetAllList',
+          method: 'GET'
+        })
+        .then(data => {
+          uni.hideLoading()
+          var [error, res] = data
+          if (error || !res.data.success || res.statusCode !== 200) {
+            let text = '网络请求失败，请刷新页面后重试'
+            if (res && res.data && res.data.error && res.data.error.message) {
+              text = res.data.error.message
+            }
+            uni.showToast({
+              title: text,
+              duration: 1500
+            })
+            return
+          }
+          this.requesters = res.data.result
+        })
     }
   }
 }

@@ -12,6 +12,7 @@ namespace Backend.Web.Host.Dtos
         {
             CreateMap<AddUserInput, User>();
             CreateMap<User, AuthenticateOutput>();
+            CreateMap<User, UserOutput>();
         }
     }
 }

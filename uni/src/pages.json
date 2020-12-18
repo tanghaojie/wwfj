@@ -4,7 +4,17 @@
       "path": "pages/my2/index"
     },
     {
-      "path": "pages/my2/register"
+      "path": "pages/my2/register",
+      "style": {
+        "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/my2/setting",
+      "style": {
+        "navigationBarTitleText": "用户管理",
+        "enablePullDownRefresh": true
+      }
     },
     {
       "path": "pages/index/detailv2"
@@ -17,6 +27,16 @@
     },
     {
       "path": "pages/index/detail"
+    },
+
+    {
+      "path": "pages/indexv2/index",
+      "style": {
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/indexv2/project"
     }
   ],
   "globalStyle": {
@@ -41,7 +61,8 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/index/index",
+        // "pagePath": "pages/indexv2/index",
+        "pagePath": "pages/indexv2/project",
         "iconPath": "static/template.png",
         "selectedIconPath": "static/templateHL.png",
         "text": "项目管理"

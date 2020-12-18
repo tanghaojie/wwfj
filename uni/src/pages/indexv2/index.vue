@@ -123,7 +123,7 @@ import arrowButton from '@/components/buttons/arrow.vue'
 import test from '@/components/buttons/test.vue'
 import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
 import simpleAddress from '@/components/simple-address/simple-address.nvue'
-import item from './item.vue'
+import item from '../index/item.vue'
 import { USER_INFO } from '@/store/storage-keys.js'
 
 export default {
@@ -143,7 +143,7 @@ export default {
       scrollTop: 0,
       tabBars: [
         {
-          name: '待处理',
+          name: '进行中',
           id: 'daichuli'
         },
         {
@@ -198,6 +198,7 @@ export default {
         this.$store.state.accessToken ||
         uni.getStorageSync(USER_INFO).accessToken
       console.log(token)
+
       uni.showLoading({
         title: '加载中'
       })
@@ -216,10 +217,11 @@ export default {
       }
       uni
         .request({
-          url: this.BaseUrl + '/api/services/app/FJ/GetPendingList',
+          url: this.BaseUrl + '/api/services/app/FJ2/GetAllList',
           data: {
+            allFinish: false,
             skipCount: this.pendingTotal,
-            maxResultCount: 2
+            maxResultCount: 10
           },
           header: {
             Authorization: 'Bearer ' + token
@@ -280,6 +282,7 @@ export default {
       const token =
         this.$store.state.accessToken ||
         uni.getStorageSync(USER_INFO).accessToken
+
       uni.showLoading({
         title: '加载中'
       })
@@ -298,10 +301,11 @@ export default {
       }
       uni
         .request({
-          url: this.BaseUrl + '/api/services/app/FJ/GetFinishedList',
+          url: this.BaseUrl + '/api/services/app/FJ2/GetAllList',
           data: {
+            allFinish: true,
             skipCount: this.finishedTotal,
-            maxResultCount: 20
+            maxResultCount: 10
           },
           header: {
             Authorization: 'Bearer ' + token

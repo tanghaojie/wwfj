@@ -10,7 +10,9 @@ namespace Backend.EntityFrameworkCore
         //Add DbSet properties for your entities...
 
         public DbSet<FJ> FJs { get; set; }
+        public DbSet<FJ2> FJ2s { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<RequestCompany> RequestCompanies { get; set; }
 
         public BackendDbContext(DbContextOptions<BackendDbContext> options)
             : base(options)

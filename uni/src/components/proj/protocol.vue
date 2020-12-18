@@ -61,6 +61,22 @@
           </view>
         </view>
         <view v-show="protocoled">
+           <!-- 协议编号 -->
+          <view class="input-group">
+            <view class="title">
+              <text class="title-text title-text-require ">协议编号</text>
+            </view>
+            <view class="input-wrapper">
+              <input
+                class="input"
+                @input="onProtocoledNumberInput"
+                placeholder="请输入..."
+                :value="protocoledNumber"
+                :disabled="!formEnable"
+              />
+            </view>
+          </view>
+
           <!-- 协议签订时间 -->
           <view class="input-group j-flex j-flex-row ">
             <view class="title">
@@ -76,22 +92,6 @@
               >
                 <view class="text-center">{{ protocoledDate }}</view>
               </picker>
-            </view>
-          </view>
-
-          <!-- 协议编号 -->
-          <view class="input-group">
-            <view class="title">
-              <text class="title-text title-text-require ">协议编号</text>
-            </view>
-            <view class="input-wrapper">
-              <input
-                class="input"
-                @input="onProtocoledNumberInput"
-                placeholder="请输入..."
-                :value="protocoledNumber"
-                :disabled="!formEnable"
-              />
             </view>
           </view>
 

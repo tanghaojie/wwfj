@@ -4,8 +4,11 @@ using Backend.Entities;
 using Backend.JTAuthenticate;
 using Backend.Web.Host.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -56,5 +59,13 @@ namespace Backend.Web.Host.Controllers
             }
             return await _userRepository.InsertAndGetIdAsync(ObjectMapper.Map<User>(input));
         }
+
+        [HttpGet]
+        public async Task<List<UserOutput>> Get()
+        {
+            var list = await _userRepository.GetAll().OrderByDescending(x => x.Id).ToListAsync();
+            return ObjectMapper.Map<List<UserOutput>>(list);
+        }
+
     }
 }
