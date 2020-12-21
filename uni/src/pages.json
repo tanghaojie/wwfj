@@ -61,8 +61,8 @@
         "text": "首页"
       },
       {
-        // "pagePath": "pages/indexv2/index",
-        "pagePath": "pages/indexv2/project",
+        "pagePath": "pages/indexv2/index",
+        // "pagePath": "pages/indexv2/project",
         "iconPath": "static/template.png",
         "selectedIconPath": "static/templateHL.png",
         "text": "项目管理"

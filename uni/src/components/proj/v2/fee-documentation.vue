@@ -294,6 +294,61 @@ export default {
 
     allFinishChange(e) {
       this.allFinish = e.detail.value
+    },
+
+    getVM() {
+      const obj = {
+        ifPaySurveyFee: this.ifPaySurveyFeeTypes[
+          this.ifPaySurveyFeeTypesCurrent
+        ].value,
+        paySurveyFeeDate: this.paySurveyFeeDate,
+        payExcavationFeeDate: this.payExcavationFeeDate,
+        workInfoDocumentIssuanceDate: this.workInfoDocumentIssuanceDate,
+        workFinishInfoDocumentIssuanceDate: this
+          .workFinishInfoDocumentIssuanceDate,
+        noticeOfReceiveWorkFinishInfoDocumentDate: this
+          .noticeOfReceiveWorkFinishInfoDocumentDate,
+        receivedWorkFinishInfoDocument: this.receivedWorkFinishInfoDocument,
+        finishDocumentIssuanceDate: this.finishDocumentIssuanceDate,
+        noticeOfReceiveFinishDocumentDate: this
+          .noticeOfReceiveFinishDocumentDate,
+        receivedFinishDocument: this.receivedFinishDocument,
+        allFinish: this.allFinish
+      }
+
+      return obj
+    },
+
+    setVM(obj) {
+      const ifPaySurveyFee = obj.ifPaySurveyFee
+      this.ifPaySurveyFeeTypes.every((item, index) => {
+        if (item.value === ifPaySurveyFee) {
+          this.ifPaySurveyFeeTypesCurrent = index
+          return false
+        }
+        return true
+      })
+
+      this.paySurveyFeeDate = this.getYMD(obj.paySurveyFeeDate)
+      this.payExcavationFeeDate = this.getYMD(obj.payExcavationFeeDate)
+      this.workInfoDocumentIssuanceDate = this.getYMD(
+        obj.workInfoDocumentIssuanceDate
+      )
+      this.workFinishInfoDocumentIssuanceDate = this.getYMD(
+        obj.workFinishInfoDocumentIssuanceDate
+      )
+      this.noticeOfReceiveWorkFinishInfoDocumentDate = this.getYMD(
+        obj.noticeOfReceiveWorkFinishInfoDocumentDate
+      )
+      this.receivedWorkFinishInfoDocument = obj.receivedWorkFinishInfoDocument
+      this.finishDocumentIssuanceDate = this.getYMD(
+        obj.finishDocumentIssuanceDate
+      )
+      this.noticeOfReceiveFinishDocumentDate = this.getYMD(
+        obj.noticeOfReceiveFinishDocumentDate
+      )
+      this.receivedFinishDocument = obj.receivedFinishDocument
+      this.allFinish = obj.allFinish
     }
   }
 }

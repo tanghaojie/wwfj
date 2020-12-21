@@ -99,7 +99,7 @@
             <input
               class="input"
               @input="onPartHaveTheConditionsForExcavationAreaInput"
-              placeholder="请输入工程项目名称"
+              placeholder="请输入..."
               :value="partHaveTheConditionsForExcavationArea"
             />
           </view>
@@ -361,6 +361,98 @@ export default {
 
     onSignExcavationAgreementDateChange(e) {
       this.signExcavationAgreementDate = e.detail.value
+    },
+
+    getVM() {
+      const obj = {
+        excavationProjName: this.excavationProjName,
+        ifHaveTheConditionsForExcavation: this
+          .ifHaveTheConditionsForExcavationTypes[
+          this.ifHaveTheConditionsForExcavationTypesCurrent
+        ].value,
+
+        notHaveTheConditionsForExcavationReasons: [],
+        partHaveTheConditionsForExcavationArea: this
+          .partHaveTheConditionsForExcavationArea,
+        ifStartExcavation: this.ifStartExcavationTypes[
+          this.ifStartExcavationTypesCurrent
+        ].value,
+        excavationEnterDate: this.excavationEnterDate,
+        partExcavationEndDate: this.partExcavationEndDate,
+        excavationEndDate: this.excavationEndDate,
+        signExcavationAgreementDate: this.signExcavationAgreementDate
+      }
+      const notHaveTheConditionsForExcavationReasons = []
+      this.notHaveTheConditionsForExcavationReasonItems.forEach(q => {
+        if (q.checked) {
+          const value = q.value
+          if (value === '其他') {
+            notHaveTheConditionsForExcavationReasons.push(q.reason)
+          } else {
+            notHaveTheConditionsForExcavationReasons.push(q.value)
+          }
+        }
+      })
+      obj.notHaveTheConditionsForExcavationReasons = notHaveTheConditionsForExcavationReasons
+
+      return obj
+    },
+
+    setVM(obj) {
+      this.excavationProjName = obj.excavationProjName
+
+      const haveTheConditionForExcavation = obj.ifHaveTheConditionsForExcavation
+      this.ifHaveTheConditionsForExcavationTypes.every((item, index) => {
+        if (item.value === haveTheConditionForExcavation) {
+          this.ifHaveTheConditionsForExcavationTypesCurrent = index
+          return false
+        }
+        return true
+      })
+
+      const notHaveTheConditionsForExcavationReasons =
+        obj.notHaveTheConditionsForExcavationReasons
+      notHaveTheConditionsForExcavationReasons.forEach(x => {
+        let find = false
+        this.notHaveTheConditionsForExcavationReasonItems.every(y => {
+          if (x === y.value) {
+            this.$set(y, 'checked', true)
+            find = true
+            return false
+          }
+          return true
+        })
+        if (!find) {
+          this.notHaveTheConditionsForExcavationReasonItems.every(y => {
+            if (y.value === '其他') {
+              this.$set(y, 'checked', true)
+              find = true
+              this.$set(y, 'reason', x)
+              this.otherNotHaveTheConditionsForExcavationReason = x
+              return false
+            }
+            return true
+          })
+        }
+      })
+
+      this.partHaveTheConditionsForExcavationArea =
+        obj.partHaveTheConditionsForExcavationArea
+
+      const ifStartExcavation = obj.ifStartExcavation
+      this.ifStartExcavationTypes.every((item, index) => {
+        if (item.value === ifStartExcavation) {
+          this.ifStartExcavationTypesCurrent = index
+          return false
+        }
+        return true
+      })
+      this.excavationEnterDate = this.getYMD(obj.excavationEnterDate)
+      this.partExcavationEndDate = this.getYMD(obj.partExcavationEndDate)
+      this.excavationEndDate = this.getYMD(obj.excavationEndDate)
+      this.signExcavationAgreementDate = this.getYMD(
+        obj.signExcavationAgreementDate
+      )
     }
   }
 }

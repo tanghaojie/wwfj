@@ -43,6 +43,14 @@ namespace Backend
             if (input.MaxResultCount > 30) { input.MaxResultCount = 30; }
 
             var data = _fj2Repository.GetAll().Where(x => x.AllFinish == input.AllFinish);
+            if (!string.IsNullOrWhiteSpace(input.RegionName))
+            {
+                data = data.Where(q => q.RegionName == input.RegionName);
+            }
+            if (!string.IsNullOrWhiteSpace(input.Search))
+            {
+                data = data.Where(x => x.ProjName.Contains(input.Search) || x.ProjCompany.Contains(input.Search));
+            }
 
             var count = await data.CountAsync();
             var list = await data.OrderByDescending(x => x.CreationTime).Skip(input.SkipCount).Take(input.MaxResultCount).ToListAsync();

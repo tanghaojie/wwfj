@@ -300,8 +300,6 @@
             />
           </view>
         </view>
-
-        
       </view>
     </view>
   </view>
@@ -506,6 +504,116 @@ export default {
 
     onOtherEstimateExcavateDurationInput(e) {
       this.otherEstimateExcavateDuration = e.detail.value
+    },
+
+    getVM() {
+      const obj = {
+        communicateWithProjCompanyDate: this.communicateWithProjCompanyDate,
+        ifHaveTheConditionsForSurvey: this.ifHaveTheConditionsForSurvey,
+        notHaveTheConditionsForSurveyReasons: [],
+        surveyEnterDate: this.surveyEnterDate,
+        surveyEndDate: this.surveyEndDate,
+        ifExcavation: this.ifExcavation,
+        remainsInfo: [],
+        estimateExcavateArea: null,
+        estimateExcavateDuration: null
+      }
+      const notHaveTheConditionsForSurveyReasons = []
+      this.notHaveTheConditionsForSurveyReasonItems.forEach(q => {
+        if (q.checked) {
+          const value = q.value
+          if (value === '其他') {
+            notHaveTheConditionsForSurveyReasons.push(q.reason)
+          } else {
+            notHaveTheConditionsForSurveyReasons.push(q.value)
+          }
+        }
+      })
+      obj.notHaveTheConditionsForSurveyReasons = notHaveTheConditionsForSurveyReasons
+
+      const remainsInfo = []
+      this.remainsInfo.forEach(v => {
+        remainsInfo.push(v[0] + '|' + v[1])
+      })
+      obj.remainsInfo = remainsInfo
+
+      let estimateExcavateArea = this.estimateExcavateAreas[
+        this.estimateExcavateAreaIndex
+      ].value
+      if (estimateExcavateArea === '其他') {
+        estimateExcavateArea = this.otherEstimateExcavateArea
+      }
+      obj.estimateExcavateArea = estimateExcavateArea
+
+      let estimateExcavateDuration = this.estimateExcavateDurations[
+        this.estimateExcavateDurationIndex
+      ].value
+      if (estimateExcavateDuration === '其他') {
+        estimateExcavateDuration = this.otherEstimateExcavateDuration
+      }
+      obj.estimateExcavateDuration = estimateExcavateDuration
+
+      return obj
+    },
+
+    setVM(obj) {
+      this.communicateWithProjCompanyDate = this.getYMD(
+        obj.communicateWithProjCompanyDate
+      )
+      this.ifHaveTheConditionsForSurvey = obj.ifHaveTheConditionsForSurvey
+      this.surveyEnterDate = this.getYMD(obj.surveyEnterDate)
+      this.surveyEndDate = this.getYMD(obj.surveyEndDate)
+      this.ifExcavation = obj.ifExcavation
+
+      const remains = obj.remainsInfo
+      remains.forEach(item => {
+        const data = item.split('|')
+        this.remainsInfo.push([data[0], data[1]])
+      })
+
+      const area = obj.estimateExcavateArea
+      this.estimateExcavateAreas.every((item, index) => {
+        if (item.value === area) {
+          this.estimateExcavateAreaIndex = index
+          return false
+        }
+        return true
+      })
+
+      const duration = obj.estimateExcavateDuration
+      this.estimateExcavateDurations.every((item, index) => {
+        if (item.value === duration) {
+          this.estimateExcavateDurationIndex = index
+          return false
+        }
+        return true
+      })
+
+      const notHaveTheConditionsForSurveyReasons =
+        obj.notHaveTheConditionsForSurveyReasons
+      notHaveTheConditionsForSurveyReasons.forEach(x => {
+        let find = false
+        this.notHaveTheConditionsForSurveyReasonItems.every(y => {
+          if (x === y.value) {
+            this.$set(y, 'checked', true)
+            find = true
+            return false
+          }
+          return true
+        })
+        if (!find) {
+          this.notHaveTheConditionsForSurveyReasonItems.every(y => {
+            if (y.value === '其他') {
+              this.$set(y, 'checked', true)
+              find = true
+              this.$set(y, 'reason', x)
+              this.otherNotHaveTheConditionsForSurveyReason = x
+              return false
+            }
+            return true
+          })
+        }
+      })
     }
   }
 }

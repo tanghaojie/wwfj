@@ -2,7 +2,8 @@
   <view class="main-view j-flex j-flex-column">
     <uni-search-bar
       placeholder="搜索"
-      @confirm="search"
+      @confirm="searchConfirm"
+      @cancel="searchCancel"
       cancelButton="auto"
       bgColor=""
       class="j-flex-nogrow-noshrink search-bar"
@@ -12,7 +13,7 @@
       <simple-address
         ref="addressPicker"
         themeColor="#007AFF"
-        :pickerValueDefault="region.index"
+        :pickerValueDefault="regionFilter.index"
         @onConfirm="onAddresPickerConfirm"
         type="bottom"
       ></simple-address>
@@ -23,13 +24,13 @@
             <text class="title-text">按行政区筛选</text>
           </view>
           <view class="region input-inline-wrapper">
-            {{ region.label }}
+            {{ regionFilter.label }}
           </view>
         </view>
         <view
           class="clear j-flex j-flex-center"
           @click="regionClear"
-          v-show="region.label"
+          v-show="regionFilter.label"
         >
           <icon type="clear" />
         </view>
@@ -152,11 +153,12 @@ export default {
         }
       ],
       tabIndex: null,
-      region: {
+      regionFilter: {
         label: '',
         index: [22, 0, 0],
         code: ''
-      }
+      },
+      search: null
     }
   },
   components: {
@@ -172,7 +174,7 @@ export default {
   methods: {
     plusTaped() {
       uni.navigateTo({
-        url: 'detailv2'
+        url: 'project'
       })
     },
     toTopTaped() {
@@ -181,8 +183,13 @@ export default {
         duration: 300
       })
     },
-    search(res) {
-      console.log('Search: ' + res.value)
+    searchConfirm(res) {
+      this.search = res.value
+      this.refreshViewData()
+    },
+    searchCancel() {
+      this.search = null
+      this.refreshViewData()
     },
     tabBarTap(e) {
       let index = parseInt(
@@ -193,6 +200,7 @@ export default {
       }
       this.tabIndex = index
     },
+
     getPendingData(refresh = true) {
       const token =
         this.$store.state.accessToken ||
@@ -220,6 +228,8 @@ export default {
           url: this.BaseUrl + '/api/services/app/FJ2/GetAllList',
           data: {
             allFinish: false,
+            search: this.search,
+            regionName: this.regionFilter.label,
             skipCount: this.pendingTotal,
             maxResultCount: 10
           },
@@ -262,16 +272,15 @@ export default {
               data: item,
               id: item.id,
               title: {
-                left: item.name,
-                right: item.stateName
+                left: item.projName,
+                right: item.landPropertyName || ''
               },
               content: [
-                '项目性质：' + item.projPropertyName,
-                '用地性质：' + item.landPropertyName,
+                '项目单位：' + item.projCompany,
                 '详细地址：' + item.regionName + ' ' + item.locationDetail
               ],
               bottom: {
-                left: item.creationTimeStr
+                left: this.getDate(item.creationTime)
               }
             })
           }
@@ -304,6 +313,8 @@ export default {
           url: this.BaseUrl + '/api/services/app/FJ2/GetAllList',
           data: {
             allFinish: true,
+            search: this.search,
+            regionName: this.regionFilter.label,
             skipCount: this.finishedTotal,
             maxResultCount: 10
           },
@@ -341,22 +352,21 @@ export default {
           }
           this.finishedHasMore = this.finishedTotal < total ? true : false
 
-          for (let index = 0; index < items.length; index++) {
+          for (let index = 0; index < len; index++) {
             let item = items[index]
             finishedData.push({
               data: item,
               id: item.id,
               title: {
-                left: item.name,
-                right: item.stateName
+                left: item.projName,
+                right: item.landPropertyName || ''
               },
               content: [
-                '项目性质：' + item.projPropertyName,
-                '用地性质：' + item.landPropertyName,
+                '项目单位：' + item.projCompany,
                 '详细地址：' + item.regionName + ' ' + item.locationDetail
               ],
               bottom: {
-                left: item.creationTimeStr
+                left: this.getDate(item.creationTime)
               }
             })
           }
@@ -378,24 +388,35 @@ export default {
     },
     itemTaped(opt) {
       uni.navigateTo({
-        url: 'detailv2?id=' + opt.id + '&state=' + opt.state
+        url: 'project?id=' + opt.id
       })
     },
     startPullDownRefresh() {
       this.refreshViewData()
     },
     onAddresPickerConfirm(e) {
-      this.region.label = e.label
-      this.region.index = e.value
-      this.region.code = e.areaCode
+      this.regionFilter.label = e.label
+      this.regionFilter.index = e.value
+      this.regionFilter.code = e.areaCode
+      this.refreshViewData()
     },
     openAddresPicker() {
       this.$refs.addressPicker.open()
     },
     regionClear() {
-      this.region.label = ''
-      this.region.index = [22, 0, 0]
-      this.region.code = ''
+      this.regionFilter.label = ''
+      this.regionFilter.index = [22, 0, 0]
+      this.regionFilter.code = ''
+      this.refreshViewData()
+    },
+    getDate(strDate) {
+      const date = new Date(strDate)
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
+      month = month > 9 ? month : '0' + month
+      day = day > 9 ? day : '0' + day
+      return `${year}-${month}-${day}`
     }
   },
   onPullDownRefresh() {

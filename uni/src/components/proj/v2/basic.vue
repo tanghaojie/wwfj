@@ -525,6 +525,102 @@ export default {
 
     onSurveyDepartmentInput(e) {
       this.surveyDepartment = e.detail.value
+    },
+
+    getVM() {
+      const obj = {
+        projName: this.projName,
+        projCompany: this.projCompany,
+        regionCode: this.locRegion.code,
+        regionName: this.locRegion.label,
+        regionIndex: this.locRegion.index.toString(),
+        locationDetail: this.locDetail,
+        landPropertyName: this.landProps[this.landPropIndex].name,
+        landPropertyIndex: this.landPropIndex,
+        majorProj: this.majorProj,
+        documentSubmitDate: this.documentSubmitDate,
+        paperDocumentReviewCompletionDate: this
+          .paperDocumentReviewCompletionDate,
+        onSiteVerificationCompletionDate: this.onSiteVerificationCompletionDate,
+        ifSurvey: this.ifSurvey,
+        surveyWorkType: this.surveyWorkTypes[this.surveyWorkTypesCurrent].value,
+        ifSignSurveyAgreement: this.ifSignSurveyAgreement,
+        sendSurveyAgreementDate: this.sendSurveyAgreementDate,
+        replyStampedSurveyAgreementDate: this.replyStampedSurveyAgreementDate,
+        signSurveyAgreementDate: this.signSurveyAgreementDate,
+        surveyAgreementNumber: this.surveyAgreementNumber,
+        taskExclusionDate: this.taskExclusionDate,
+        surveyDepartment: this.surveyDepartment
+      }
+      const notSurveyReasonItems = []
+      this.notSurveyReasonItems.forEach(q => {
+        if (q.checked) {
+          const value = q.value
+          if (value === '其他') {
+            notSurveyReasonItems.push(q.reason)
+          } else {
+            notSurveyReasonItems.push(q.value)
+          }
+        }
+      })
+      obj.notSurveyReasons = notSurveyReasonItems
+      return obj
+    },
+
+    setVM(obj) {
+      this.projName = obj.projName
+      this.projCompany = obj.projCompany
+      this.locRegion.code = obj.regionCode
+      this.locRegion.label = obj.regionName
+      this.locRegion.index = obj.regionIndex.split(',').map(q => parseInt(q))
+
+      this.locDetail = obj.locationDetail
+      this.landPropIndex = obj.landPropertyIndex
+      this.majorProj = obj.majorProj
+      this.documentSubmitDate = this.getYMD(obj.documentSubmitDate)
+      this.paperDocumentReviewCompletionDate = this.getYMD(
+        obj.paperDocumentReviewCompletionDate
+      )
+      this.onSiteVerificationCompletionDate = this.getYMD(
+        obj.onSiteVerificationCompletionDate
+      )
+      this.ifSurvey = obj.ifSurvey
+      surveyWorkType: this.surveyWorkTypes[this.surveyWorkTypesCurrent].value,
+        (this.ifSignSurveyAgreement = obj.ifSignSurveyAgreement)
+      this.sendSurveyAgreementDate = this.getYMD(obj.sendSurveyAgreementDate)
+      this.replyStampedSurveyAgreementDate = this.getYMD(
+        obj.replyStampedSurveyAgreementDate
+      )
+      this.signSurveyAgreementDate = this.getYMD(obj.signSurveyAgreementDate)
+      this.surveyAgreementNumber = obj.surveyAgreementNumber
+      this.taskExclusionDate = this.getYMD(obj.taskExclusionDate)
+      this.surveyDepartment = obj.surveyDepartment
+
+      const notSurveyReasonItems = obj.notSurveyReasons
+      notSurveyReasonItems.forEach(x => {
+        let find = false
+
+        this.notSurveyReasonItems.every(y => {
+          if (x === y.value) {
+            this.$set(y, 'checked', true)
+            find = true
+            return false
+          }
+          return true
+        })
+        if (!find) {
+          this.notSurveyReasonItems.every(y => {
+            if (y.value === '其他') {
+              this.$set(y, 'checked', true)
+              find = true
+              this.$set(y, 'reason', x)
+              this.otherNotSurveyReason = x
+              return false
+            }
+            return true
+          })
+        }
+      })
     }
   }
 }

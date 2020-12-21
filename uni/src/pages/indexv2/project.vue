@@ -31,9 +31,14 @@
           >
             <basic ref="basic" />
 
-            <button class="share-button j-theme-bg m-b-100" @click="onCommit()">
-              提交
-            </button>
+            <view style="padding-bottom: 25px">
+              <button
+                class="share-button j-theme-bg m-b-100"
+                @click="onCommit()"
+              >
+                提交
+              </button></view
+            >
           </scroll-view>
         </swiper-item>
 
@@ -43,9 +48,14 @@
             :style="{ height: layoutContentHeight + 'px' }"
           >
             <survey ref="survey" />
-            <button class="share-button j-theme-bg m-b-100" @click="onCommit()">
-              提交
-            </button>
+            <view style="padding-bottom: 25px">
+              <button
+                class="share-button j-theme-bg m-b-100"
+                @click="onCommit()"
+              >
+                提交
+              </button></view
+            >
           </scroll-view>
         </swiper-item>
 
@@ -57,9 +67,14 @@
             }"
           >
             <excavate ref="excavate" />
-            <button class="share-button j-theme-bg m-b-100" @click="onCommit()">
-              提交
-            </button>
+            <view style="padding-bottom: 25px">
+              <button
+                class="share-button j-theme-bg m-b-100"
+                @click="onCommit()"
+              >
+                提交
+              </button></view
+            >
           </scroll-view>
         </swiper-item>
 
@@ -71,9 +86,14 @@
             }"
           >
             <fee-documentation ref="feeDocumentation" />
-            <button class="share-button j-theme-bg m-b-100" @click="onCommit()">
-              提交
-            </button>
+            <view style="padding-bottom: 25px">
+              <button
+                class="share-button j-theme-bg m-b-100"
+                @click="onCommit()"
+              >
+                提交
+              </button></view
+            >
           </scroll-view>
         </swiper-item>
       </swiper>
@@ -94,7 +114,7 @@ export default {
   data() {
     return {
       id: -1,
-      stepIndex: 3,
+      stepIndex: 0,
       layoutContentHeight: 0,
       steps: [
         { title: '基本信息' },
@@ -148,7 +168,38 @@ export default {
     },
     onCommit() {
       console.log('------------------------------------')
-      this.getVM()
+      const vm = this.getVM()
+      if (!vm) {
+        return
+      }
+      uni.showLoading({ title: '请稍后...' })
+      uni
+        .request({
+          url: this.BaseUrl + '/api/services/app/FJ2/Commit',
+          method: 'POST',
+          data: vm,
+          header: {
+            'content-type': 'application/json'
+          }
+        })
+        .then(data => {
+          var [error, res] = data
+          uni.hideLoading()
+          if (error) {
+            uni.showToast({
+              title: '提交失败，请重试',
+              duration: 1500
+            })
+            return
+          }
+          const pages = getCurrentPages()
+          const beforePage = pages[pages.length - 2]
+          uni.navigateBack({
+            success: function() {
+              beforePage.$vm.startPullDownRefresh()
+            }
+          })
+        })
     },
     getVM() {
       const basic = this.$refs.basic
@@ -156,59 +207,76 @@ export default {
       const excavate = this.$refs.excavate
       const feeDocumentation = this.$refs.feeDocumentation
 
-      const basicObj = this.getBasicVM(basic)
-      console.log(basicObj)
+      const basicVM = basic.getVM()
+      const surveyVM = survey.getVM()
+      const excavateVM = excavate.getVM()
+      const feeDocumentationVM = feeDocumentation.getVM()
+
+      const vm = {}
+      if (this.id || this.id >= 0) {
+        vm.id = this.id
+      }
+      Object.assign(vm, basicVM, surveyVM, excavateVM, feeDocumentationVM)
+
+      console.log(vm)
+      return vm
     },
-    getBasicVM(basicRef) {
-      const obj = {
-        projName: basicRef.projName,
-        projCompany: basicRef.projCompany,
-        regionCode: basicRef.locRegion.code,
-        regionName: basicRef.locRegion.label,
-        regionIndex: basicRef.locRegion.index,
-        locationDetail: basicRef.locDetail,
-        landPropertyName: basicRef.landProps[basicRef.landPropIndex].name,
-        landPropertyIndex: basicRef.landPropIndex,
-        majorProj: basicRef.majorProj,
-        documentSubmitDate: basicRef.documentSubmitDate,
-        paperDocumentReviewCompletionDate:
-          basicRef.paperDocumentReviewCompletionDate,
-        onSiteVerificationCompletionDate:
-          basicRef.onSiteVerificationCompletionDate,
-        ifSurvey: basicRef.ifSurvey,
-        surveyWorkType:
-          basicRef.surveyWorkTypes[basicRef.surveyWorkTypesCurrent].value,
-        ifSignSurveyAgreement: basicRef.ifSignSurveyAgreement,
-        sendSurveyAgreementDate: basicRef.sendSurveyAgreementDate,
-        replyStampedSurveyAgreementDate:
-          basicRef.replyStampedSurveyAgreementDate,
-        signSurveyAgreementDate: basicRef.signSurveyAgreementDate,
-        surveyAgreementNumber: basicRef.surveyAgreementNumber,
-        taskExclusionDate: basicRef.taskExclusionDate,
-        surveyDepartment: basicRef.surveyDepartment
+
+    requestData() {
+      if (!this.id || this.id < 0) {
+        return
       }
-      const notSurveyReasonItems = []
-      basicRef.notSurveyReasonItems.forEach(q => {
-        if (q.checked) {
-          notSurveyReasonItems.push(q.value)
-        }
-      })
-      if (notSurveyReasonItems.includes('其他')) {
-        notSurveyReasonItems.splice(notSurveyReasonItems.indexOf('其他'), 1)
-        notSurveyReasonItems.push(basicRef.otherNotSurveyReason)
-      }
-      obj.notSurveyReasons = notSurveyReasonItems
-      return obj
+      const self = this
+      uni.showLoading({ title: '' })
+      uni
+        .request({
+          url: this.BaseUrl + '/api/services/app/FJ2/Get',
+          data: { id: this.id }
+        })
+        .then(pro => {
+          var [error, res] = pro
+          uni.hideLoading()
+          if (error || !res.data.success || res.statusCode !== 200) {
+            let text = '获取数据失败，请重试'
+            if (res && res.data && res.data.error && res.data.error.message) {
+              text = res.data.error.message
+            }
+            uni.showToast({
+              title: text,
+              duration: 1500
+            })
+            return
+          }
+          let result = res.data.result
+          if (!result || JSON.stringify(result) === '{}') {
+            return
+          }
+
+          self.setVM(result)
+        })
+    },
+    setVM(obj) {
+      console.log(obj)
+      const basic = this.$refs.basic
+      const survey = this.$refs.survey
+      const excavate = this.$refs.excavate
+      const feeDocumentation = this.$refs.feeDocumentation
+
+      this.id = obj.id
+      basic.setVM(obj)
+      survey.setVM(obj)
+      excavate.setVM(obj)
+      feeDocumentation.setVM(obj)
     }
   },
   mounted() {
     this.$nextTick(() => {
-      //   this.requestData()
+      this.requestData()
     })
     this.setupUI()
   },
   onLoad(option) {
-    // this.id = option.id
+    this.id = option.id
   }
 }
 </script>
@@ -236,6 +304,9 @@ export default {
   }
   .layout-content {
     flex: 1 1 auto;
+    .swiper {
+    }
+
     /deep/ .input-group {
       // margin: 30rpx 0;
       margin: 15rpx 0;
