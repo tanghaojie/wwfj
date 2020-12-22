@@ -304,8 +304,6 @@ export default {
   }
   .layout-content {
     flex: 1 1 auto;
-    .swiper {
-    }
 
     /deep/ .input-group {
       // margin: 30rpx 0;
