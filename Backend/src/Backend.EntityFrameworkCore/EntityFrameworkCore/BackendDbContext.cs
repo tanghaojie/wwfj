@@ -13,6 +13,7 @@ namespace Backend.EntityFrameworkCore
         public DbSet<FJ2> FJ2s { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RequestCompany> RequestCompanies { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         public BackendDbContext(DbContextOptions<BackendDbContext> options)
             : base(options)

@@ -18,8 +18,8 @@ namespace Backend
 
         Task<PagedResultDto<UserOutput>> GetAllUserList(GetAllUserListInput input);
 
-        Task DeletaUser(int id);
+        Task<bool> DeleteUser(DeleteUserInput input);
 
-        Task ResetPassword(int id);
+        Task<bool> ResetPassword(ResetPasswordInput input);
     }
 }

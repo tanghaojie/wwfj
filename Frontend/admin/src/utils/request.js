@@ -48,9 +48,8 @@ service.interceptors.response.use(
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.error || !res.success) {
-      console.log('request error:', res)
       Message({
-        message: res.error || 'Error',
+        message: res.error.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
@@ -72,7 +71,7 @@ service.interceptors.response.use(
       //     })
       //   })
       // }
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(res.error.message || 'Error'))
     } else {
       return res
     }
@@ -80,7 +79,7 @@ service.interceptors.response.use(
   error => {
     console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      message: error.message || 'Error',
       type: 'error',
       duration: 5 * 1000
     })

@@ -17,6 +17,8 @@ namespace Backend
 
         Task<PagedResultDto<FJ2Output>> GetAllList(GetAllList2Input input);
 
+        Task<bool> Delete(DeleteFJ2Input input);
+
 
     }
 }

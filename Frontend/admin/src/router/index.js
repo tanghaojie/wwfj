@@ -71,23 +71,45 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/company',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '例子', icon: 'el-icon-s-help' },
+    redirect: '/company/list',
+    name: 'Company',
+    meta: { title: '单位管理', icon: 'company' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/company/list/index'),
+        meta: { title: '单位列表', icon: 'company' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'add',
+        name: 'add',
+        component: () => import('@/views/company/add/index'),
+        meta: { title: '新增', icon: 'add' }
+      }
+    ]
+  },
+
+  {
+    path: '/relic',
+    component: Layout,
+    redirect: '/relic/list',
+    name: 'Relic',
+    meta: { title: '项目管理', icon: 'relic' },
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/relic/list/index'),
+        meta: { title: '项目列表', icon: 'relic' }
+      },
+      {
+        path: 'add',
+        name: 'add',
+        component: () => import('@/views/relic/add/index'),
+        meta: { title: '新增', icon: 'add' }
       }
     ]
   },

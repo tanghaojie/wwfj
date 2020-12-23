@@ -86,15 +86,18 @@ namespace Backend
             };
         }
 
-        public async Task DeletaUser(int id)
+  
+        public async Task<bool> DeleteUser(DeleteUserInput input)
         {
-            await _userRepository.DeleteAsync(id);
+            await _userRepository.DeleteAsync(input.Id);
+            return true;
         }
 
-        public async Task ResetPassword(int id)
+        public async Task<bool> ResetPassword(ResetPasswordInput input)
         {
-            var user = await _userRepository.GetAsync(id);
+            var user = await _userRepository.GetAsync(input.Id);
             user.Password = "123456";
+            return true;
         }
     }
 }

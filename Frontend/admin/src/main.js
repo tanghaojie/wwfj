@@ -35,7 +35,7 @@ Vue.use(ElementUI)
 
 Vue.prototype.getYMD = function(strDate) {
   const date = strDate ? new Date(strDate) : new Date()
-  let year = date.getFullYear()
+  const year = date.getFullYear()
   let month = date.getMonth() + 1
   let day = date.getDate()
   month = month > 9 ? month : '0' + month

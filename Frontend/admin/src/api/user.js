@@ -23,3 +23,27 @@ export function getAllUserList(params) {
     params
   })
 }
+
+export function changeUserLock(data) {
+  return request({
+    url: '/api/services/app/User/ChangeUserLock',
+    method: 'post',
+    data
+  })
+}
+
+export function resetPassword(data) {
+  return request({
+    url: '/api/services/app/User/ResetPassword',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteUser(params) {
+  return request({
+    url: '/api/services/app/User/DeleteUser',
+    method: 'delete',
+    params
+  })
+}

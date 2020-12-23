@@ -11,6 +11,9 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
+          <div class="username">
+            <i> {{ name }}</i>
+          </div>
           <img :src="defaultAvatar" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
@@ -45,7 +48,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['sidebar', 'avatar'])
+    ...mapGetters(['sidebar', 'avatar', 'name'])
   },
   methods: {
     toggleSideBar() {
@@ -114,9 +117,18 @@ export default {
     .avatar-container {
       margin-right: 30px;
 
+      .username {
+        display: inline;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-right: 5px;
+        line-height: 1.2rem;
+      }
+
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
+        display: inline-block;
 
         .user-avatar {
           cursor: pointer;

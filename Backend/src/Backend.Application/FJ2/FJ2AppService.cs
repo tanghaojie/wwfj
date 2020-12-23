@@ -42,7 +42,13 @@ namespace Backend
         {
             if (input.MaxResultCount > 30) { input.MaxResultCount = 30; }
 
-            var data = _fj2Repository.GetAll().Where(x => x.AllFinish == input.AllFinish);
+            var data = _fj2Repository.GetAll();
+
+            if (input.AllFinish.HasValue)
+            {
+                data = data.Where(x => x.AllFinish == input.AllFinish);
+            }
+
             if (!string.IsNullOrWhiteSpace(input.RegionName))
             {
                 data = data.Where(q => q.RegionName == input.RegionName);
@@ -64,5 +70,10 @@ namespace Backend
             };
         }
 
+        public async Task<bool> Delete(DeleteFJ2Input input)
+        {
+            await _fj2Repository.DeleteAsync(input.Id);
+            return true;
+        }
     }
 }

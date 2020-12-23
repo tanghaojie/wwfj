@@ -1,5 +1,5 @@
 <template>
-  <div class="user-container">
+  <div class="company-container">
     <el-pagination
       :current-page="currentPage"
       :page-sizes="[5, 10, 20, 30]"
@@ -22,45 +22,33 @@
       fit
       class="table"
     >
-      <el-table-column label="用户名" align="center">
+      <el-table-column label="企业名称" align="center">
         <template slot-scope="scope">
-          {{ scope.row.username }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
 
-      <el-table-column label="姓名" align="center">
+      <el-table-column label="注册地址" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.realname }}</span>
+          <span>{{ scope.row.registeredLocation }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="电话" align="center">
+      <el-table-column label="统一社会信用代码" align="center">
         <template slot-scope="scope">
-          {{ scope.row.phone }}
+          {{ scope.row.unifiedSocialCreditCode }}
         </template>
       </el-table-column>
 
-      <el-table-column label="所属区域" align="center">
+      <el-table-column align="center" label="联系人">
         <template slot-scope="scope">
-          {{ scope.row.regionName }}
+          {{ scope.row.responsiblePerson }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="注册日期">
+      <el-table-column align="center" label="联系方式">
         <template slot-scope="scope">
-          {{ getYMD(scope.row.creationTime) }}
-        </template>
-      </el-table-column>
-
-      <el-table-column label="状态" align="center">
-        <template slot-scope="scope">
-          <el-button
-            size="medium "
-            :type="scope.row.locked ? 'danger' : 'success'"
-            @click="handleUserLock(scope.row)"
-          >
-            {{ scope.row.locked ? '已锁定' : '正常' }}</el-button
-          >
+          {{ scope.row.contactInfo }}
         </template>
       </el-table-column>
 
@@ -69,14 +57,7 @@
           <el-button
             size="medium "
             type="danger"
-            @click="resetUserPassword(scope.row)"
-          >
-            重置密码
-          </el-button>
-          <el-button
-            size="medium "
-            type="danger"
-            @click="deleteUser(scope.row)"
+            @click="handleDelete(scope.row)"
           >
             删除
           </el-button>
@@ -87,17 +68,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import {
-  getAllUserList,
-  changeUserLock,
-  resetPassword,
-  deleteUser
-} from '@/api/user'
+import { get, getAll, createCompany, deleteCompany } from '@/api/company'
 import { Message, MessageBox } from 'element-ui'
 
 export default {
-  name: 'User',
+  name: 'Company',
   data() {
     return {
       list: [],
@@ -108,34 +83,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['name']),
     skip() {
       return (this.currentPage - 1) * this.pageSize
     }
   },
   mounted() {
-    this.getUsers()
+    this.getCompanies()
   },
   methods: {
-    handleUserLock(row) {
-      this.listLoading = true
-      changeUserLock({
-        id: row.id,
-        locked: !row.locked
-      })
-        .then(res => {
-          if (res.result) {
-            row.locked = !row.locked
-          }
-          this.listLoading = false
-        })
-        .catch(() => {
-          this.listLoading = false
-        })
-    },
-    resetUserPassword(row) {
+    handleDelete(row) {
       MessageBox.confirm(
-        `重置用户[ ${row.username} ]的密码为 123456 ？`,
+        `是否确认删除单位[ ${row.name} ]的所有信息？此操作不可恢复`,
         '警告',
         {
           type: 'warning'
@@ -143,41 +101,15 @@ export default {
       )
         .then(() => {
           this.listLoading = true
-          resetPassword({
+          deleteCompany({
             id: row.id
           })
             .then(res => {
-              Message.success({
-                message: '密码已重置',
-                showClose: true
-              })
+              this.getCompanies()
               this.listLoading = false
             })
             .catch(() => {
-              this.listLoading = false
-            })
-        })
-        .catch(() => {})
-    },
-    deleteUser(row) {
-      MessageBox.confirm(
-        `是否确认删除用户[ ${row.username} ]？此操作不可恢复`,
-        '警告',
-        {
-          type: 'warning'
-        }
-      )
-        .then(() => {
-          this.listLoading = true
-          deleteUser({
-            id: row.id
-          })
-            .then(res => {
-              this.getUsers()
-              this.listLoading = false
-            })
-            .catch(() => {
-              this.getUsers()
+              this.getCompanies()
               this.listLoading = false
             })
         })
@@ -185,17 +117,17 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val
-      this.getUsers()
+      this.getCompanies()
     },
     handleCurrentChange(val) {
       this.currentPage = val
-      this.getUsers()
+      this.getCompanies()
     },
-    getUsers() {
+    getCompanies() {
       this.list = []
       // this.listTotal = 0
       this.listLoading = true
-      return getAllUserList({
+      return getAll({
         skipCount: this.skip,
         maxResultCount: this.pageSize
       }).then(response => {
@@ -210,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-container {
+.company-container {
   & {
     margin: 30px;
   }

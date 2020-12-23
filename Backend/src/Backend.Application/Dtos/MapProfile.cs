@@ -17,9 +17,6 @@ namespace Backend.Dtos
             CreateMap<FJ2NewInput, FJ2>();
             CreateMap<AddRequestCompanyInput, RequestCompany>();
             CreateMap<RequestCompany, RequestCompanyOutput>();
-
-            CreateMap<AddUserInput, User>();
-            CreateMap<User, UserOutput>();
         }
     }
 }
