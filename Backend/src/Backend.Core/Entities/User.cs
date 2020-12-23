@@ -13,8 +13,6 @@ namespace Backend.Entities
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public Department Department { get; set; }
 
         public string Phone { get; set; }
 
@@ -25,12 +23,9 @@ namespace Backend.Entities
         public string RegionName { get; set; }
         public string RegionIndex { get; set; }
 
-        //public Role Role { get; set; } = Role.AllRegion | Role.Write | Role.Read;
 
         [Required]
         public bool Locked { get; set; } = true;
-
-
 
         [Required]
         public DateTime CreationTime { get; set; } = DateTime.Now;
@@ -38,19 +33,4 @@ namespace Backend.Entities
 
     }
 
-    public enum Role
-    {
-        No = 0,
-        AllRegion = 1,
-        Write = 2,
-        Read = 4
-    }
-    public enum Department
-    {
-        KanTanYeWu = 0,
-        KanTanBan = 1,
-        FaJueXianChangeFuZeRen = 2,
-        WenBaoChu = 3,
-        Other = 4
-    }
 }

@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using Backend.Dtos;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,15 @@ namespace Backend
     public interface IUserAppService : IApplicationService
     {
         Task<bool> ChangeUserLock(ChangeUserLockInput input);
+
+        Task<int> AddUser(AddUserInput input);
+
+        Task<List<UserOutput>> GetUser();
+
+        Task<PagedResultDto<UserOutput>> GetAllUserList(GetAllUserListInput input);
+
+        Task DeletaUser(int id);
+
+        Task ResetPassword(int id);
     }
 }

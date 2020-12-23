@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Backend.Web.Host.Dtos
+namespace Backend
 {
     public class AddUserInput
     {
@@ -22,6 +22,5 @@ namespace Backend.Web.Host.Dtos
         public string RegionName { get; set; }
         public string RegionIndex { get; set; }
 
-        //public Role Role { get; set; } = Role.AllRegion | Role.Write | Role.Read;
     }
 }

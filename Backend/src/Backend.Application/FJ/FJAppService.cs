@@ -70,10 +70,10 @@ namespace Backend
             x.State == State.Diging
                 );
 
-            if (user.Department == Department.KanTanYeWu)
-            {
-                data = data.Where(x => x.RegionCode == user.RegionCode);
-            }
+            //if (user.Department == Department.KanTanYeWu)
+            //{
+            //    data = data.Where(x => x.RegionCode == user.RegionCode);
+            //}
 
             var count = await data.CountAsync();
             var list = await data.OrderByDescending(x => x.CreationTime).Skip(input.SkipCount).Take(input.MaxResultCount).ToListAsync();
@@ -98,10 +98,10 @@ namespace Backend
             x.State == State.Diged
                 );
 
-            if (user.Department == Department.KanTanYeWu)
-            {
-                data = data.Where(x => x.RegionCode == user.RegionCode);
-            }
+            //if (user.Department == Department.KanTanYeWu)
+            //{
+            //    data = data.Where(x => x.RegionCode == user.RegionCode);
+            //}
 
             var count = await data.CountAsync();
             var list = await data.OrderByDescending(x => x.CreationTime).Skip(input.SkipCount).Take(input.MaxResultCount).ToListAsync();

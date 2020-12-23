@@ -74,7 +74,7 @@ namespace Backend.Web.Host.Controllers
                     Username = result.Username,
                     //Role = (int)result.Role,
                     RegionCode = result.RegionCode,
-                    Department = result.Department,
+                    //Department = result.Department,
                     RegionIndex = result.RegionIndex,
                     RegionName = result.RegionName
                 };
@@ -110,7 +110,7 @@ namespace Backend.Web.Host.Controllers
                     Username = result.Username,
                     //Role = (int)result.Role,
                     RegionCode = result.RegionCode,
-                    Department = result.Department,
+                    //Department = result.Department,
                     RegionIndex = result.RegionIndex,
                     RegionName = result.RegionName
                 };

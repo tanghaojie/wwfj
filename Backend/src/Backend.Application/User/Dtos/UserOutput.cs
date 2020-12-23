@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Backend.Web.Host.Dtos
+namespace Backend
 {
     public class UserOutput : EntityDto
     {

@@ -10,7 +10,6 @@ namespace Backend.Web.Host.Dtos
         public string Username { get; set; }
 
         public string Phone { get; set; }
-        public Department Department { get; set; }
 
         public string Realname { get; set; }
 
