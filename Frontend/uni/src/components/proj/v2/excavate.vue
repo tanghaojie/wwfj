@@ -231,27 +231,27 @@ export default {
       ifHaveTheConditionsForExcavationTypesCurrent: 0,
 
       notHaveTheConditionsForExcavationReasonItems: [
-        {
-          value: '项目未打围'
-        },
-        {
-          value: '未清理地表建渣及堆土'
-        },
-        {
-          value: '地表下硬化基础'
-        },
-        {
-          value: '青苗赔偿未解决'
-        },
-        {
-          value: '地下官网未清理'
-        },
-        {
-          value: '水电未供应'
-        },
-        {
-          value: '临时建筑设施未提供'
-        },
+        // {
+        //   value: '项目未打围'
+        // },
+        // {
+        //   value: '未清理地表建渣及堆土'
+        // },
+        // {
+        //   value: '地表下硬化基础'
+        // },
+        // {
+        //   value: '青苗赔偿未解决'
+        // },
+        // {
+        //   value: '地下官网未清理'
+        // },
+        // {
+        //   value: '水电未供应'
+        // },
+        // {
+        //   value: '临时建筑设施未提供'
+        // },
         {
           value: '其他'
         }

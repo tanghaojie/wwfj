@@ -1,5 +1,6 @@
 ﻿using Abp.AspNetCore.Configuration;
 using Abp.AutoMapper;
+using Abp.Dependency;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Backend.Configuration;

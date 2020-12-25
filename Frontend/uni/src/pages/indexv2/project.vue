@@ -223,9 +223,69 @@ export default {
     },
 
     requestData() {
-      if (!this.id || this.id < 0) {
-        return
-      }
+      const self = this
+      this.requestOptions()
+        .then(options => {
+          uni.hideLoading()
+          console.log(44)
+          self.setOptions(self, options)
+          console.log(22)
+          if (!self.id || self.id < 0) {
+            return
+          }
+          self.requestVM(self.id)
+        })
+        .catch(() => {
+          uni.hideLoading()
+          uni.showToast({
+            title: '获取数据失败，请重试11',
+            duration: 1500
+          })
+        })
+    },
+
+    setOptions(self, options) {
+      console.log(options)
+      const basic = self.$refs.basic
+      const survey = self.$refs.survey
+      const excavate = self.$refs.excavate
+
+      basic.landProps = options[0].values
+      basic.notSurveyReasonItems = options[1].values
+        .map(x => {
+          return { value: x }
+        })
+        .concat(basic.notSurveyReasonItems)
+
+      survey.notHaveTheConditionsForSurveyReasonItems = options[2].values
+        .map(x => {
+          return { value: x }
+        })
+        .concat(survey.notHaveTheConditionsForSurveyReasonItems)
+
+      survey.remainTypes = options[3].values
+      survey.remainPeriods = options[4].values
+
+      survey.estimateExcavateAreas = options[5].values
+        .map(x => {
+          return { value: x }
+        })
+        .concat(survey.estimateExcavateAreas)
+
+      survey.estimateExcavateDurations = options[6].values
+        .map(x => {
+          return { value: x }
+        })
+        .concat(survey.estimateExcavateDurations)
+
+      excavate.notHaveTheConditionsForExcavationReasonItems = options[7].values
+        .map(x => {
+          return { value: x }
+        })
+        .concat(excavate.notHaveTheConditionsForExcavationReasonItems)
+    },
+
+    requestVM(id) {
       const self = this
       uni.showLoading({ title: '' })
       uni
@@ -255,6 +315,7 @@ export default {
           self.setVM(result)
         })
     },
+
     setVM(obj) {
       console.log(obj)
       const basic = this.$refs.basic
@@ -267,8 +328,48 @@ export default {
       survey.setVM(obj)
       excavate.setVM(obj)
       feeDocumentation.setVM(obj)
+    },
+
+    requestOptions() {
+      const types = [
+        'LandProps',
+        'NotSurveyReasons',
+        'NotHaveTheConditionsForSurveyReasons',
+        'RemainTypes',
+        'RemainPeriods',
+        'EstimateExcavateAreas',
+        'EstimateExcavateDurations',
+        'NotHaveTheConditionsForExcavationReasons'
+      ]
+
+      const promises = []
+      const self = this
+      types.forEach(x => {
+        promises.push(self.requestOption(x))
+      })
+      uni.showLoading({ title: '' })
+
+      return Promise.all(promises)
+    },
+    requestOption(type) {
+      return new Promise((resolve, reject) => {
+        uni
+          .request({
+            url: this.BaseUrl + '/api/services/app/Option/GetByType',
+            data: { type: type }
+          })
+          .then(pro => {
+            var [error, res] = pro
+            if (error || !res.data.success || res.statusCode !== 200) {
+              reject()
+            }
+            const d = res.data.result
+            resolve(d)
+          })
+      })
     }
   },
+
   mounted() {
     this.$nextTick(() => {
       this.requestData()

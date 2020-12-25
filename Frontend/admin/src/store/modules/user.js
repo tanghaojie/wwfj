@@ -41,7 +41,7 @@ const actions = {
             setToken(result.accessToken)
             resolve()
           } else {
-            reject()
+            reject('用户名或密码错误/用户已锁定')
           }
         })
         .catch(error => {

@@ -318,21 +318,21 @@ export default {
       ifHaveTheConditionsForSurvey: false,
 
       notHaveTheConditionsForSurveyReasonItems: [
-        {
-          value: '项目未打围'
-        },
-        {
-          value: '项目现场地表存堆土'
-        },
-        {
-          value: '建渣、地表硬化基础未清除'
-        },
-        {
-          value: '青苗赔偿未解决'
-        },
-        {
-          value: '地下存有官网等未清理'
-        },
+        // {
+        //   value: '项目未打围'
+        // },
+        // {
+        //   value: '项目现场地表存堆土'
+        // },
+        // {
+        //   value: '建渣、地表硬化基础未清除'
+        // },
+        // {
+        //   value: '青苗赔偿未解决'
+        // },
+        // {
+        //   value: '地下存有官网等未清理'
+        // },
         {
           value: '其他'
         }
@@ -348,24 +348,24 @@ export default {
       addRemainInfoFormShown: false,
 
       remainTypes: [
-        '遗址',
-        '墓葬',
-        '窑址',
-        '房址',
-        '城墙',
-        '建筑基址',
-        '作坊',
-        '其它'
+        // '遗址',
+        // '墓葬',
+        // '窑址',
+        // '房址',
+        // '城墙',
+        // '建筑基址',
+        // '作坊',
+        // '其它'
       ],
       remainPeriods: [
-        '新石器时代',
-        '商周时期',
-        '战国时期',
-        '汉代',
-        '南北朝',
-        '唐宋',
-        '明清',
-        '其它'
+        // '新石器时代',
+        // '商周时期',
+        // '战国时期',
+        // '汉代',
+        // '南北朝',
+        // '唐宋',
+        // '明清',
+        // '其它'
       ],
       addRemainInfoIndexValue: [0, 0],
       addRemainInfoValue: ['遗址', '新石器时代'],
@@ -374,21 +374,21 @@ export default {
 
       estimateExcavateAreaIndex: 0,
       estimateExcavateAreas: [
-        { value: '0-200平方米' },
-        { value: '200-400平方米' },
-        { value: '400-600平方米' },
-        { value: '600-800平方米' },
-        { value: '800-1000平方米' },
-        { value: '1000-1200平方米' },
-        { value: '1200-1400平方米' },
-        { value: '1400-1600平方米' },
-        { value: '1600-1800平方米' },
-        { value: '1800-2000平方米' },
-        { value: '2000-2200平方米' },
-        { value: '2200-2400平方米' },
-        { value: '2400-2600平方米' },
-        { value: '2600-2800平方米' },
-        { value: '2800-3000平方米' },
+        // { value: '0-200平方米' },
+        // { value: '200-400平方米' },
+        // { value: '400-600平方米' },
+        // { value: '600-800平方米' },
+        // { value: '800-1000平方米' },
+        // { value: '1000-1200平方米' },
+        // { value: '1200-1400平方米' },
+        // { value: '1400-1600平方米' },
+        // { value: '1600-1800平方米' },
+        // { value: '1800-2000平方米' },
+        // { value: '2000-2200平方米' },
+        // { value: '2200-2400平方米' },
+        // { value: '2400-2600平方米' },
+        // { value: '2600-2800平方米' },
+        // { value: '2800-3000平方米' },
         { value: '其他' }
       ],
 
@@ -396,18 +396,18 @@ export default {
 
       estimateExcavateDurationIndex: 0,
       estimateExcavateDurations: [
-        { value: '1个月' },
-        { value: '2个月' },
-        { value: '3个月' },
-        { value: '4个月' },
-        { value: '5个月' },
-        { value: '6个月' },
-        { value: '7个月' },
-        { value: '8个月' },
-        { value: '9个月' },
-        { value: '10个月' },
-        { value: '11个月' },
-        { value: '12个月' },
+        // { value: '1个月' },
+        // { value: '2个月' },
+        // { value: '3个月' },
+        // { value: '4个月' },
+        // { value: '5个月' },
+        // { value: '6个月' },
+        // { value: '7个月' },
+        // { value: '8个月' },
+        // { value: '9个月' },
+        // { value: '10个月' },
+        // { value: '11个月' },
+        // { value: '12个月' },
         { value: '其他' }
       ],
 

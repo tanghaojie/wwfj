@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import simpleAddress from '@/components/simple-address/simple-address.nvue'
+import simpleAddress from '@/components/simple-address/simple-address.vue'
 
 export default {
   name: '',

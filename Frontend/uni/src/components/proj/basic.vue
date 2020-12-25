@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import simpleAddress from '@/components/simple-address/simple-address.nvue'
+import simpleAddress from '@/components/simple-address/simple-address.vue'
 import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
 import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
 

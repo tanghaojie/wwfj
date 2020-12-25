@@ -19,6 +19,47 @@ namespace Backend.Migrations
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("Abp.JT.Configuration.Setting", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "Name", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("Backend.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -243,9 +284,6 @@ namespace Backend.Migrations
                     b.Property<bool>("IfSurvey")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("LandPropertyIndex")
-                        .HasColumnType("integer");
-
                     b.Property<string>("LandPropertyName")
                         .HasColumnType("text");
 
@@ -301,12 +339,6 @@ namespace Backend.Migrations
                     b.Property<bool>("ReceivedWorkFinishInfoDocument")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("RegionCode")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RegionIndex")
-                        .HasColumnType("text");
-
                     b.Property<string>("RegionName")
                         .HasColumnType("text");
 
@@ -352,6 +384,40 @@ namespace Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FJ2s");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Option", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OptionType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string[]>("Values")
+                        .HasColumnType("text[]");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionType")
+                        .IsUnique();
+
+                    b.ToTable("Options");
                 });
 
             modelBuilder.Entity("Backend.Entities.RequestCompany", b =>

@@ -18,17 +18,9 @@ namespace Backend.Dtos2
         public string ProjCompany { get; set; }
 
         /// <summary>
-        /// 所在区域  pac
-        /// </summary>
-        public string RegionCode { get; set; }
-        /// <summary>
         /// 所在区域
         /// </summary>
         public string RegionName { get; set; }
-        /// <summary>
-        /// 所在区域  前端要index
-        /// </summary>
-        public string RegionIndex { get; set; }
 
         /// <summary>
         /// 详细位置
@@ -39,10 +31,6 @@ namespace Backend.Dtos2
         /// 土地用地性质
         /// </summary>
         public string LandPropertyName { get; set; }
-        /// <summary>
-        /// 土地用地性质 前端要index
-        /// </summary>
-        public int? LandPropertyIndex { get; set; }
 
         /// <summary>
         /// 是否重点项目

@@ -12,7 +12,7 @@ using Abp.UI;
 
 namespace Backend.CompanyService
 {
-    public class CompanyAppService : AsyncCrudAppService<Company, CompanyDto, int, GetAllInput>
+    public class CompanyAppService : AsyncCrudAppService<Company, CompanyDto, int, GetAllInput>, ICompanyAppService
     {
         public CompanyAppService(IRepository<Company> companyRepository) : base(companyRepository)
         {
@@ -21,6 +21,8 @@ namespace Backend.CompanyService
 
         public override async Task<CompanyDto> CreateAsync(CompanyDto input)
         {
+            CheckCreatePermission();
+
             if ((await Repository.GetAll().Where(x => x.Name == input.Name).CountAsync()) > 0)
             {
                 throw new UserFriendlyException(200, $"{input.Name }：企业名称重复");

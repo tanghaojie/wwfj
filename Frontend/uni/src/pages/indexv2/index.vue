@@ -123,7 +123,7 @@ import plusButton from '@/components/buttons/plus.vue'
 import arrowButton from '@/components/buttons/arrow.vue'
 import test from '@/components/buttons/test.vue'
 import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
-import simpleAddress from '@/components/simple-address/simple-address.nvue'
+import simpleAddress from '@/components/simple-address/simple-address.vue'
 import item from '../index/item.vue'
 import { USER_INFO } from '@/store/storage-keys.js'
 

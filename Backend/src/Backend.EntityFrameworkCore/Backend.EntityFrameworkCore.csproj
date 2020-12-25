@@ -20,9 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend.Core\Backend.Core.csproj" />
+    <ProjectReference Include="..\Modules\Abp.JT.EntityFramework\Abp.JTCore.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Abp.EntityFrameworkCore" Version="5.9.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>

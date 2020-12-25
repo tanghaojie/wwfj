@@ -72,11 +72,11 @@
           mode="selector"
           :value="landPropIndex"
           :range="landProps"
-          range-key="name"
+          range-key="value"
           class="text-center"
           @change="onLandPropChange"
         >
-          <view class="">{{ landProps[landPropIndex].name }}</view>
+          <view class="">{{ landProps[landPropIndex].value }}</view>
         </picker>
       </view>
     </view>
@@ -344,7 +344,7 @@
 </template>
 
 <script>
-import simpleAddress from '@/components/simple-address/simple-address.nvue'
+import simpleAddress from '@/components/simple-address/simple-address.vue'
 
 export default {
   components: { simpleAddress },
@@ -356,18 +356,17 @@ export default {
 
       locRegion: {
         label: '',
-        index: [22, 0, 0],
-        code: ''
+        index: [22, 0, 0]
       },
       locDetail: null,
 
       landPropIndex: 0,
       landProps: [
-        { name: '' },
-        { name: '上市' },
-        { name: '协议出让' },
-        { name: '划拨' },
-        { name: '自由土地' }
+        { value: '' },
+        { value: '上市' },
+        { value: '协议出让' },
+        { value: '划拨' },
+        { value: '自由土地' }
       ],
 
       majorProj: false,
@@ -379,15 +378,15 @@ export default {
       ifSurvey: false,
 
       notSurveyReasonItems: [
-        {
-          value: '项目征地拆迁未完成'
-        },
-        {
-          value: '项目已完成施工'
-        },
-        {
-          value: '不具备文勘条件'
-        },
+        // {
+        //   value: '项目征地拆迁未完成'
+        // },
+        // {
+        //   value: '项目已完成施工'
+        // },
+        // {
+        //   value: '不具备文勘条件'
+        // },
         {
           value: '其他'
         }
@@ -437,7 +436,6 @@ export default {
     onAddresPickerConfirm(e) {
       this.locRegion.label = e.label
       this.locRegion.index = e.value
-      this.locRegion.code = e.areaCode
     },
 
     onLocDetailInput(e) {
@@ -531,12 +529,9 @@ export default {
       const obj = {
         projName: this.projName,
         projCompany: this.projCompany,
-        regionCode: this.locRegion.code,
         regionName: this.locRegion.label,
-        regionIndex: this.locRegion.index.toString(),
         locationDetail: this.locDetail,
         landPropertyName: this.landProps[this.landPropIndex].name,
-        landPropertyIndex: this.landPropIndex,
         majorProj: this.majorProj,
         documentSubmitDate: this.documentSubmitDate,
         paperDocumentReviewCompletionDate: this
@@ -570,12 +565,29 @@ export default {
     setVM(obj) {
       this.projName = obj.projName
       this.projCompany = obj.projCompany
-      this.locRegion.code = obj.regionCode
-      this.locRegion.label = obj.regionName
-      this.locRegion.index = obj.regionIndex.split(',').map(q => parseInt(q))
+
+      const regionName = obj.regionName
+      if (regionName && regionName.indexOf('-') >= 0) {
+        this.locRegion.label = regionName
+        const index = this.$refs.addressPicker.queryIndex(
+          obj.regionName.split('-'),
+          'label'
+        )
+        this.locRegion.index = index.index
+        console.log(this.locRegion)
+      }
 
       this.locDetail = obj.locationDetail
-      this.landPropIndex = obj.landPropertyIndex
+
+      const landPropertyName = obj.landPropertyName
+      this.landProps.every((item, index) => {
+        if (item.value === landPropertyName) {
+          this.landPropIndex = index
+          return false
+        }
+        return true
+      })
+
       this.majorProj = obj.majorProj
       this.documentSubmitDate = this.getYMD(obj.documentSubmitDate)
       this.paperDocumentReviewCompletionDate = this.getYMD(

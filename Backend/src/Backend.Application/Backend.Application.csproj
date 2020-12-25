@@ -11,6 +11,8 @@
     <RootNamespace>Backend</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Abp\Abp.AutoMapper\Abp.AutoMapper.csproj" />
+    <ProjectReference Include="..\Abp\Abp.EntityFrameworkCore\Abp.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Backend.Core\Backend.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Abp\Abp.AspNetCore\Abp.AspNetCore.csproj" />
+    <ProjectReference Include="..\Abp\Abp.Castle.Log4Net\Abp.Castle.Log4Net.csproj" />
     <ProjectReference Include="..\Backend.Application\Backend.Application.csproj" />
     <ProjectReference Include="..\Backend.EntityFrameworkCore\Backend.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Backend.Web.Host\Backend.Web.Host.csproj" />
@@ -46,8 +48,6 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
-    <PackageReference Include="Abp.AspNetCore" Version="5.9.0" />
-    <PackageReference Include="Abp.Castle.Log4Net" Version="5.9.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
