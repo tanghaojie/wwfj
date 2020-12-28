@@ -528,9 +528,11 @@ export default {
   padding: 10rpx;
 
   .plus-button {
+    display: block;
   }
 
   .top-button {
+    display: block;
   }
 }
 

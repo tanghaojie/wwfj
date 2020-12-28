@@ -46,10 +46,10 @@
     </view>
 
     <view v-show="ifHaveTheConditionsForExcavationTypesCurrent === 2">
-      <!-- 不具备考古调查勘探条件原因 -->
+      <!-- 不具备考古发掘入场条件原因 -->
       <view class="input-group">
         <view class="title"
-          ><text class="title-text">不具备考古调查勘探条件原因</text></view
+          ><text class="title-text">不具备考古发掘入场条件原因</text></view
         >
         <view class="input-wrapper">
           <checkbox-group

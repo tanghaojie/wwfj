@@ -52,7 +52,7 @@ export const constantRoutes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
-        meta: { title: '仪表盘', icon: 'dashboard' }
+        meta: { title: '首页', icon: 'dashboard' }
       }
     ]
   },
@@ -60,6 +60,7 @@ export const constantRoutes = [
   {
     path: '/user',
     component: Layout,
+    // redirect: '/user',
     children: [
       {
         path: 'index',
@@ -79,13 +80,13 @@ export const constantRoutes = [
     children: [
       {
         path: 'list',
-        name: 'list',
+        name: 'Compnay.List',
         component: () => import('@/views/company/list/index'),
         meta: { title: '单位列表', icon: 'company' }
       },
       {
         path: 'add',
-        name: 'add',
+        name: 'Compnay.Add',
         component: () => import('@/views/company/add/index'),
         meta: { title: '新增', icon: 'add' }
       }
@@ -101,13 +102,13 @@ export const constantRoutes = [
     children: [
       {
         path: 'list',
-        name: 'list',
+        name: 'Relic.List',
         component: () => import('@/views/relic/list/index'),
         meta: { title: '项目列表', icon: 'relic' }
       },
       {
         path: 'add',
-        name: 'add',
+        name: 'Relic.Add',
         component: () => import('@/views/relic/add/index'),
         meta: { title: '新增', icon: 'add' }
       }
@@ -115,14 +116,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/form',
+    path: '/setting',
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'options',
+        name: 'Options',
+        component: () => import('@/views/setting/options/index'),
+        meta: { title: '配置信息维护', icon: 'user' }
       }
     ]
   },

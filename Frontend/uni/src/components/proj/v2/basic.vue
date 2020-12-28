@@ -1,5 +1,5 @@
 <template>
-  <view class="new">
+  <view class="basic">
     <simple-address
       ref="addressPicker"
       themeColor="#007AFF"
@@ -28,11 +28,22 @@
         <text class="title-text ">项目单位</text>
       </view>
       <view class="input-wrapper">
-        <input
-          class="input"
-          @input="onProjCompanyInput"
-          placeholder="请输入项目单位"
-          :value="projCompany"
+        <button
+          size="mini"
+          class="button-input"
+          :style="{
+            color: projCompany.name ? '#000' : '#858585'
+          }"
+          @click="selectProjCompany"
+        >
+          {{ this.projCompany.name || '点击选择项目单位' }}
+        </button>
+        <icon
+          type="clear"
+          size="24"
+          style="margin: 0 10px;"
+          @click="clearProjCompany"
+          v-show="projCompany.name"
         />
       </view>
     </view>
@@ -352,7 +363,15 @@ export default {
   data() {
     return {
       projName: '',
-      projCompany: '',
+      projCompany: {
+        name: 'qwe',
+        registeredLocation: null,
+        unifiedSocialCreditCode: null,
+        responsiblePerson: null,
+        contactInfo: null,
+        creationTime: null,
+        id: null
+      },
 
       locRegion: {
         label: '',
@@ -426,8 +445,19 @@ export default {
     onProjNameInput(e) {
       this.projName = e.detail.value
     },
-    onProjCompanyInput(e) {
-      this.projCompany = e.detail.value
+
+    selectProjCompany() {
+      console.log(111)
+    },
+
+    clearProjCompany() {
+      this.projCompany.name = null
+      this.projCompany.registeredLocation = null
+      this.projCompany.unifiedSocialCreditCode = null
+      this.projCompany.responsiblePerson = null
+      this.projCompany.contactInfo = null
+      this.projCompany.creationTime = null
+      this.projCompany.id = null
     },
 
     openAddresPicker() {
@@ -637,3 +667,33 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.basic {
+  .button-input {
+    background-color: white;
+    font-size: 16px;
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+
+    &::after {
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: none;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+  }
+}
+</style>

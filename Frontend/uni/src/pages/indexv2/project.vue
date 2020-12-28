@@ -227,9 +227,7 @@ export default {
       this.requestOptions()
         .then(options => {
           uni.hideLoading()
-          console.log(44)
           self.setOptions(self, options)
-          console.log(22)
           if (!self.id || self.id < 0) {
             return
           }
@@ -245,7 +243,6 @@ export default {
     },
 
     setOptions(self, options) {
-      console.log(options)
       const basic = self.$refs.basic
       const survey = self.$refs.survey
       const excavate = self.$refs.excavate

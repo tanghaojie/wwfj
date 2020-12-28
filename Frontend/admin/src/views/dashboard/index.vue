@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">你好: {{ name }}</div>
   </div>
 </template>
 
@@ -10,9 +10,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['name'])
   }
 }
 </script>
@@ -23,7 +21,7 @@ export default {
     margin: 30px;
   }
   &-text {
-    font-size: 30px;
+    font-size: 24px;
     line-height: 46px;
   }
 }

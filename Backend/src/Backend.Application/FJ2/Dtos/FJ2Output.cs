@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Backend.CompanyService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Backend.Dtos2
         /// <summary>
         /// 项目单位
         /// </summary>
-        public string ProjCompany { get; set; }
+        public CompanyDto ProjCompany { get; set; }
 
         /// <summary>
         /// 所在区域

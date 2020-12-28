@@ -20,7 +20,6 @@ namespace Backend.EntityFrameworkCore
         public BackendDbContext(DbContextOptions<BackendDbContext> options)
             : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

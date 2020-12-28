@@ -3,6 +3,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Backend.Entities
@@ -15,10 +16,12 @@ namespace Backend.Entities
         [Required]
         public string ProjName { get; set; }
 
+        public int? ProjCompanyId { get; set; }
         /// <summary>
         /// 项目单位
         /// </summary>
-        public string ProjCompany { get; set; }
+        [ForeignKey("ProjCompanyId")]
+        public Company ProjCompany { get; set; }
 
         /// <summary>
         /// 所在区域

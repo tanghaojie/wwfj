@@ -12,6 +12,5 @@ namespace Backend.Entities
         [Required]
         public string OptionType { get; set; }
         public string[] Values { get; set; }
-
     }
-}
+} 

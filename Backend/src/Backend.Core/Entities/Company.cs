@@ -3,6 +3,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Permissions;
 using System.Text;
 
 namespace Backend.Entities
@@ -19,6 +20,8 @@ namespace Backend.Entities
         public string ResponsiblePerson { get; set; }
 
         public string ContactInfo { get; set; }
+
+        //public ICollection<FJ2> FJ2s { get; set; }
 
         [Required]
         public DateTime CreationTime { get; set; } = DateTime.Now;
