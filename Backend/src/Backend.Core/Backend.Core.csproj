@@ -15,13 +15,13 @@
     <EmbeddedResource Include="Localization\SourceFiles\*.json" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Abp" Version="5.9.0" />
+    <PackageReference Include="Abp.AutoMapper" Version="5.9.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Abp\Abp.AutoMapper\Abp.AutoMapper.csproj" />
-    <ProjectReference Include="..\Abp\Abp\Abp.csproj" />
     <ProjectReference Include="..\Modules\Abp.JT\Abp.JTCore.csproj" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Abp\Abp.EntityFrameworkCore\Abp.EntityFrameworkCore.csproj" />
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="5.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Abp.JT\Abp.JTCore.csproj" />
   </ItemGroup>
 

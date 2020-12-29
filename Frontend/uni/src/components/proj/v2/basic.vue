@@ -364,7 +364,7 @@ export default {
     return {
       projName: '',
       projCompany: {
-        name: 'qwe',
+        name: '',
         registeredLocation: null,
         unifiedSocialCreditCode: null,
         responsiblePerson: null,
@@ -381,11 +381,11 @@ export default {
 
       landPropIndex: 0,
       landProps: [
-        { value: '' },
-        { value: '上市' },
-        { value: '协议出让' },
-        { value: '划拨' },
-        { value: '自由土地' }
+        { value: '' }
+        // { value: '上市' },
+        // { value: '协议出让' },
+        // { value: '划拨' },
+        // { value: '自由土地' }
       ],
 
       majorProj: false,
@@ -447,7 +447,14 @@ export default {
     },
 
     selectProjCompany() {
-      console.log(111)
+      const emitName = 'Pages.Indexv2.Project'
+      const self = this
+      uni.$once(emitName, function(data) {
+        self.projCompany = data
+      })
+      uni.navigateTo({
+        url: '/pages/indexv2/projCompanySelect?emitName=' + emitName
+      })
     },
 
     clearProjCompany() {
@@ -473,8 +480,12 @@ export default {
     },
 
     onLandPropChange(e) {
+      // console.log(e)
       this.landPropIndex = e.detail.value
+      console.log(this.landPropIndex)
+      console.log(this.landProps[this.landPropIndex])
     },
+
     majorProjChange(e) {
       this.majorProj = e.target.value
     },
@@ -558,7 +569,7 @@ export default {
     getVM() {
       const obj = {
         projName: this.projName,
-        projCompany: this.projCompany,
+        projCompanyId: this.projCompany.id,
         regionName: this.locRegion.label,
         locationDetail: this.locDetail,
         landPropertyName: this.landProps[this.landPropIndex].name,
@@ -594,7 +605,9 @@ export default {
 
     setVM(obj) {
       this.projName = obj.projName
-      this.projCompany = obj.projCompany
+      if (obj.projCompany) {
+        this.projCompany = obj.projCompany
+      }
 
       const regionName = obj.regionName
       if (regionName && regionName.indexOf('-') >= 0) {

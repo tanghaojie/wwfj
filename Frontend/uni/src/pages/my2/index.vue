@@ -8,7 +8,7 @@
         ></div>
         <div class="username">{{ displayUsername }}</div>
       </div>
-      <div class="right" @click="settingPage">
+      <!-- <div class="right" @click="settingPage">
         <div class="setting">
           <svg
             t="1597728650238"
@@ -32,7 +32,7 @@
             ></path>
           </svg>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div

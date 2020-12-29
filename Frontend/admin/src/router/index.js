@@ -71,6 +71,42 @@ export const constantRoutes = [
     ]
   },
 
+  // {
+  //   path: '/relic',
+  //   component: Layout,
+  //   redirect: '/relic/list',
+  //   name: 'Relic',
+  //   meta: { title: '项目管理', icon: 'relic' },
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       name: 'Relic.List',
+  //       component: () => import('@/views/relic/list/index'),
+  //       meta: { title: '项目列表', icon: 'relic' }
+  //     },
+  //     {
+  //       path: 'add',
+  //       name: 'Relic.Add',
+  //       component: () => import('@/views/relic/add/index'),
+  //       meta: { title: '新增', icon: 'add' }
+  //     }
+  //   ]
+  // },
+
+  {
+    path: '/relic',
+    component: Layout,
+    redirect: '/relic/list',
+    children: [
+      {
+        path: 'list',
+        name: 'Relic.List',
+        component: () => import('@/views/relic/list/index'),
+        meta: { title: '项目列表', icon: 'relic' }
+      }
+    ]
+  },
+
   {
     path: '/company',
     component: Layout,
@@ -88,28 +124,6 @@ export const constantRoutes = [
         path: 'add',
         name: 'Compnay.Add',
         component: () => import('@/views/company/add/index'),
-        meta: { title: '新增', icon: 'add' }
-      }
-    ]
-  },
-
-  {
-    path: '/relic',
-    component: Layout,
-    redirect: '/relic/list',
-    name: 'Relic',
-    meta: { title: '项目管理', icon: 'relic' },
-    children: [
-      {
-        path: 'list',
-        name: 'Relic.List',
-        component: () => import('@/views/relic/list/index'),
-        meta: { title: '项目列表', icon: 'relic' }
-      },
-      {
-        path: 'add',
-        name: 'Relic.Add',
-        component: () => import('@/views/relic/add/index'),
         meta: { title: '新增', icon: 'add' }
       }
     ]

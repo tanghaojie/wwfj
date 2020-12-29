@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Abp\Abp\Abp.csproj" />
+    <PackageReference Include="Abp" Version="5.9.0" />
   </ItemGroup>
 
 </Project>

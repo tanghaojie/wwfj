@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(BackendDbContext))]
-    [Migration("20201225072428_a4")]
-    partial class a4
+    [Migration("20201229065137_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -328,8 +328,8 @@ namespace Backend.Migrations
                     b.Property<DateTime?>("PaySurveyFeeDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("ProjCompany")
-                        .HasColumnType("text");
+                    b.Property<int?>("ProjCompanyId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProjName")
                         .IsRequired()
@@ -384,6 +384,8 @@ namespace Backend.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjCompanyId");
 
                     b.ToTable("FJ2s");
                 });
@@ -486,6 +488,13 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Entities.RequestCompany", "RequestCompany")
                         .WithMany()
                         .HasForeignKey("RequestCompanyId");
+                });
+
+            modelBuilder.Entity("Backend.Entities.FJ2", b =>
+                {
+                    b.HasOne("Backend.Entities.Company", "ProjCompany")
+                        .WithMany()
+                        .HasForeignKey("ProjCompanyId");
                 });
 #pragma warning restore 612, 618
         }

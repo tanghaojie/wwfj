@@ -37,6 +37,12 @@
     },
     {
       "path": "pages/indexv2/project"
+    },
+    {
+      "path": "pages/indexv2/projCompanySelect",
+      "style": {
+        "enablePullDownRefresh": true
+      }
     }
   ],
   "globalStyle": {

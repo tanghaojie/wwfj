@@ -31,9 +31,13 @@ namespace Backend.CompanyService
         }
 
 
-        //protected override IQueryable<Company> CreateFilteredQuery(GetAllInput input)
-        //{
-        //    return base.CreateFilteredQuery(input);
-        //}
+        protected override IQueryable<Company> CreateFilteredQuery(GetAllInput input)
+        {
+            if (string.IsNullOrWhiteSpace(input.NameFilter))
+            {
+                return base.CreateFilteredQuery(input);
+            }
+            return base.CreateFilteredQuery(input).Where(x => x.Name.Contains(input.NameFilter));
+        }
     }
 }

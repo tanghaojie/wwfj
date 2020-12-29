@@ -7,5 +7,6 @@ namespace Backend.CompanyService.Dtos
 {
     public class GetAllInput : PagedAndSortedResultRequestDto
     {
+        public string NameFilter { get; set; }
     }
 }

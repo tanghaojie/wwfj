@@ -27,64 +27,21 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FJ2s",
+                name: "Options",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProjName = table.Column<string>(nullable: false),
-                    ProjCompany = table.Column<string>(nullable: true),
-                    RegionName = table.Column<string>(nullable: true),
-                    LocationDetail = table.Column<string>(nullable: true),
-                    LandPropertyName = table.Column<string>(nullable: true),
-                    MajorProj = table.Column<bool>(nullable: false),
-                    DocumentSubmitDate = table.Column<DateTime>(nullable: true),
-                    PaperDocumentReviewCompletionDate = table.Column<DateTime>(nullable: true),
-                    OnSiteVerificationCompletionDate = table.Column<DateTime>(nullable: true),
-                    IfSurvey = table.Column<bool>(nullable: false),
-                    NotSurveyReasons = table.Column<string[]>(nullable: true),
-                    SurveyWorkType = table.Column<string>(nullable: true),
-                    IfSignSurveyAgreement = table.Column<bool>(nullable: false),
-                    SendSurveyAgreementDate = table.Column<DateTime>(nullable: true),
-                    ReplyStampedSurveyAgreementDate = table.Column<DateTime>(nullable: true),
-                    SignSurveyAgreementDate = table.Column<DateTime>(nullable: true),
-                    SurveyAgreementNumber = table.Column<string>(nullable: true),
-                    TaskExclusionDate = table.Column<DateTime>(nullable: true),
-                    SurveyDepartment = table.Column<string>(nullable: true),
-                    CommunicateWithProjCompanyDate = table.Column<DateTime>(nullable: true),
-                    IfHaveTheConditionsForSurvey = table.Column<bool>(nullable: false),
-                    NotHaveTheConditionsForSurveyReasons = table.Column<string[]>(nullable: true),
-                    SurveyEnterDate = table.Column<DateTime>(nullable: true),
-                    SurveyEndDate = table.Column<DateTime>(nullable: true),
-                    IfExcavation = table.Column<bool>(nullable: false),
-                    RemainsInfo = table.Column<string[]>(nullable: true),
-                    EstimateExcavateArea = table.Column<string>(nullable: true),
-                    EstimateExcavateDuration = table.Column<string>(nullable: true),
-                    ExcavationProjName = table.Column<string>(nullable: true),
-                    IfHaveTheConditionsForExcavation = table.Column<string>(nullable: true),
-                    NotHaveTheConditionsForExcavationReasons = table.Column<string[]>(nullable: true),
-                    PartHaveTheConditionsForExcavationArea = table.Column<string>(nullable: true),
-                    IfStartExcavation = table.Column<string>(nullable: true),
-                    ExcavationEnterDate = table.Column<DateTime>(nullable: true),
-                    PartExcavationEndDate = table.Column<DateTime>(nullable: true),
-                    ExcavationEndDate = table.Column<DateTime>(nullable: true),
-                    SignExcavationAgreementDate = table.Column<DateTime>(nullable: true),
-                    IfPaySurveyFee = table.Column<string>(nullable: true),
-                    PaySurveyFeeDate = table.Column<DateTime>(nullable: true),
-                    PayExcavationFeeDate = table.Column<DateTime>(nullable: true),
-                    WorkInfoDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
-                    WorkFinishInfoDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
-                    NoticeOfReceiveWorkFinishInfoDocumentDate = table.Column<DateTime>(nullable: true),
-                    ReceivedWorkFinishInfoDocument = table.Column<bool>(nullable: false),
-                    FinishDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
-                    NoticeOfReceiveFinishDocumentDate = table.Column<DateTime>(nullable: true),
-                    ReceivedFinishDocument = table.Column<bool>(nullable: false),
-                    AllFinish = table.Column<bool>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false)
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorUserId = table.Column<long>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierUserId = table.Column<long>(nullable: true),
+                    OptionType = table.Column<string>(nullable: false),
+                    Values = table.Column<string[]>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FJ2s", x => x.Id);
+                    table.PrimaryKey("PK_Options", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,6 +97,73 @@ namespace Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FJ2s",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProjName = table.Column<string>(nullable: false),
+                    ProjCompanyId = table.Column<int>(nullable: true),
+                    RegionName = table.Column<string>(nullable: true),
+                    LocationDetail = table.Column<string>(nullable: true),
+                    LandPropertyName = table.Column<string>(nullable: true),
+                    MajorProj = table.Column<bool>(nullable: false),
+                    DocumentSubmitDate = table.Column<DateTime>(nullable: true),
+                    PaperDocumentReviewCompletionDate = table.Column<DateTime>(nullable: true),
+                    OnSiteVerificationCompletionDate = table.Column<DateTime>(nullable: true),
+                    IfSurvey = table.Column<bool>(nullable: false),
+                    NotSurveyReasons = table.Column<string[]>(nullable: true),
+                    SurveyWorkType = table.Column<string>(nullable: true),
+                    IfSignSurveyAgreement = table.Column<bool>(nullable: false),
+                    SendSurveyAgreementDate = table.Column<DateTime>(nullable: true),
+                    ReplyStampedSurveyAgreementDate = table.Column<DateTime>(nullable: true),
+                    SignSurveyAgreementDate = table.Column<DateTime>(nullable: true),
+                    SurveyAgreementNumber = table.Column<string>(nullable: true),
+                    TaskExclusionDate = table.Column<DateTime>(nullable: true),
+                    SurveyDepartment = table.Column<string>(nullable: true),
+                    CommunicateWithProjCompanyDate = table.Column<DateTime>(nullable: true),
+                    IfHaveTheConditionsForSurvey = table.Column<bool>(nullable: false),
+                    NotHaveTheConditionsForSurveyReasons = table.Column<string[]>(nullable: true),
+                    SurveyEnterDate = table.Column<DateTime>(nullable: true),
+                    SurveyEndDate = table.Column<DateTime>(nullable: true),
+                    IfExcavation = table.Column<bool>(nullable: false),
+                    RemainsInfo = table.Column<string[]>(nullable: true),
+                    EstimateExcavateArea = table.Column<string>(nullable: true),
+                    EstimateExcavateDuration = table.Column<string>(nullable: true),
+                    ExcavationProjName = table.Column<string>(nullable: true),
+                    IfHaveTheConditionsForExcavation = table.Column<string>(nullable: true),
+                    NotHaveTheConditionsForExcavationReasons = table.Column<string[]>(nullable: true),
+                    PartHaveTheConditionsForExcavationArea = table.Column<string>(nullable: true),
+                    IfStartExcavation = table.Column<string>(nullable: true),
+                    ExcavationEnterDate = table.Column<DateTime>(nullable: true),
+                    PartExcavationEndDate = table.Column<DateTime>(nullable: true),
+                    ExcavationEndDate = table.Column<DateTime>(nullable: true),
+                    SignExcavationAgreementDate = table.Column<DateTime>(nullable: true),
+                    IfPaySurveyFee = table.Column<string>(nullable: true),
+                    PaySurveyFeeDate = table.Column<DateTime>(nullable: true),
+                    PayExcavationFeeDate = table.Column<DateTime>(nullable: true),
+                    WorkInfoDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
+                    WorkFinishInfoDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
+                    NoticeOfReceiveWorkFinishInfoDocumentDate = table.Column<DateTime>(nullable: true),
+                    ReceivedWorkFinishInfoDocument = table.Column<bool>(nullable: false),
+                    FinishDocumentIssuanceDate = table.Column<DateTime>(nullable: true),
+                    NoticeOfReceiveFinishDocumentDate = table.Column<DateTime>(nullable: true),
+                    ReceivedFinishDocument = table.Column<bool>(nullable: false),
+                    AllFinish = table.Column<bool>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FJ2s", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FJ2s_Companies_ProjCompanyId",
+                        column: x => x.ProjCompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,9 +224,20 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_FJ2s_ProjCompanyId",
+                table: "FJ2s",
+                column: "ProjCompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FJs_RequestCompanyId",
                 table: "FJs",
                 column: "RequestCompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Options_OptionType",
+                table: "Options",
+                column: "OptionType",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_TenantId_Name_UserId",
@@ -214,19 +249,22 @@ namespace Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Companies");
-
-            migrationBuilder.DropTable(
                 name: "FJ2s");
 
             migrationBuilder.DropTable(
                 name: "FJs");
 
             migrationBuilder.DropTable(
+                name: "Options");
+
+            migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "RequestCompanies");

@@ -247,7 +247,12 @@ export default {
       const survey = self.$refs.survey
       const excavate = self.$refs.excavate
 
-      basic.landProps = options[0].values
+      basic.landProps = basic.landProps.concat(
+        options[0].values.map(x => {
+          return { value: x }
+        })
+      )
+
       basic.notSurveyReasonItems = options[1].values
         .map(x => {
           return { value: x }
