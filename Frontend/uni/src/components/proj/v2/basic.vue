@@ -480,10 +480,7 @@ export default {
     },
 
     onLandPropChange(e) {
-      // console.log(e)
       this.landPropIndex = e.detail.value
-      console.log(this.landPropIndex)
-      console.log(this.landProps[this.landPropIndex])
     },
 
     majorProjChange(e) {
@@ -572,7 +569,7 @@ export default {
         projCompanyId: this.projCompany.id,
         regionName: this.locRegion.label,
         locationDetail: this.locDetail,
-        landPropertyName: this.landProps[this.landPropIndex].name,
+        landPropertyName: this.landProps[this.landPropIndex].value,
         majorProj: this.majorProj,
         documentSubmitDate: this.documentSubmitDate,
         paperDocumentReviewCompletionDate: this
@@ -617,7 +614,6 @@ export default {
           'label'
         )
         this.locRegion.index = index.index
-        console.log(this.locRegion)
       }
 
       this.locDetail = obj.locationDetail

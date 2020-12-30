@@ -49,7 +49,7 @@ namespace Backend
         {
             if (input.MaxResultCount > 30) { input.MaxResultCount = 30; }
 
-            var data = _fj2Repository.GetAll();
+            var data = _fj2Repository.GetAllIncluding(x => x.ProjCompany);
 
             if (input.AllFinish.HasValue)
             {

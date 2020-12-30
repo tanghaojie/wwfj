@@ -50,7 +50,7 @@
 
       <el-table-column label="项目单位" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.projCompany }}</span>
+          <span>{{ scope.row.projCompany.name || '' }}</span>
         </template>
       </el-table-column>
 
@@ -481,6 +481,7 @@ export default {
       }).then(response => {
         const data = response.result
         this.list = data.items
+        console.log(this.list)
         this.listTotal = data.totalCount
         this.listLoading = false
       })

@@ -276,7 +276,7 @@ export default {
                 right: item.landPropertyName || ''
               },
               content: [
-                '项目单位：' + item.projCompany,
+                '项目单位：' + item.projCompany.name || '',
                 '详细地址：' + item.regionName + ' ' + item.locationDetail
               ],
               bottom: {
@@ -362,7 +362,7 @@ export default {
                 right: item.landPropertyName || ''
               },
               content: [
-                '项目单位：' + item.projCompany,
+                '项目单位：' + item.projCompany.name || '',
                 '详细地址：' + item.regionName + ' ' + item.locationDetail
               ],
               bottom: {
